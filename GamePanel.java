@@ -1,3 +1,8 @@
+/* BeewareOfTheGarden
+ * Desc: INSERT
+ * @Cynthia L & Phoebe Y ICS4U
+ * @version Jun 2022
+ */
 package main;
 
 import javax.swing.JPanel;
