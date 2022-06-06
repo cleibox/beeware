@@ -15,10 +15,16 @@
         window.setResizable (false);
         window.setTitle ("BEEware Of the Garden");
         
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel);
+
+        window.pack();//allows window to be sizeded to fit prefered size
+
         window.setLocationRelativeTo(null); //window will be displyed at the center of the screen 
         window.setVisible(true);
 
-        //4:08 video 1 #ryisnowslay
+        gamePanel.startGameThread();
+
      }
     }
 
