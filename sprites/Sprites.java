@@ -13,4 +13,7 @@ public class Sprites {
     public BufferedImage playerRight, playerRight1;
 
     public String direction;
+
+    public int spriteCounter = 0;
+    public int spriteNum = 1;
 }
