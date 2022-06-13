@@ -10,13 +10,15 @@
 
  public class Main{
      public static void main (String [] args){
-         
-        JFrame window = new JFrame();
+        // ----------------------------------------------------------|
+        // WINDOW SETUP ---------------------------------------------|
+        // ----------------------------------------------------------| 
+        JFrame window = new JFrame(); 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //allows the window to close properly
         window.setResizable (false);
         window.setTitle ("BEEware Of the Garden");
         
-        GamePanel gamePanel = new GamePanel();
+        GamePanel gamePanel = new GamePanel(); // initialize a gamepanel
         window.add(gamePanel);
 
         window.pack();//allows window to be sizeded to fit prefered size
@@ -24,7 +26,7 @@
         window.setLocationRelativeTo(null); //window will be displyed at the center of the screen 
         window.setVisible(true);
 
-        gamePanel.startGameThread();
+        gamePanel.startGameThread(); // the game loop starts here
 
      }
     }

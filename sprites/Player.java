@@ -18,7 +18,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-
 public class Player extends Sprites {
     
     GamePanel game;
@@ -39,7 +38,8 @@ public class Player extends Sprites {
         speed = 4;
         direction = "down";
     }
-    public void getPlayerImage(){
+
+    public void getPlayerImage(){ // load in the character sprite sheet
         try{
             //beeLeft = ImageIO.read(new File ("images/bee_left.png"));
             //beeRight = ImageIO.read(new File ("images/bee_right.png"));
@@ -59,60 +59,78 @@ public class Player extends Sprites {
         }
     }
 
-    public void update(){ //gets called 60 times per second
-        if (key.upPressed == true){
-            direction = "up";
-            y -= speed;
+    public void update(){ // gets called 60 times per second
+        if (key.upPressed == true || key.downPressed == true || 
+            key.leftPressed == true || key.rightPressed == true){
+                
+            if (key.upPressed == true){
+                direction = "up";
+                y -= speed;
+            }
+            else if (key.downPressed == true){
+                direction = "down";
+                y += speed;
+            }
+            else if (key.leftPressed == true){
+                direction = "left";
+                x -= speed;
+            }
+            else if (key.rightPressed == true){
+                direction = "right";
+                x += speed;
+            }
+    
+            spriteCounter++; //player image changes every 10 frames
+            if (spriteCounter > 10){
+                if(spriteNum == 1){
+                    spriteNum = 2;
+                }
+                else if (spriteNum == 2 || spriteNum == 3){
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+            }
         }
-        else if (key.downPressed == true){
-            direction = "down";
-            y += speed;
+        else { // idling 
+            if (direction.equals("up") || direction.equals("down")){
+                spriteNum = 3;
+            }
         }
-        else if (key.leftPressed == true){
-            direction = "left";
-            x -= speed;
-        }
-        else if (key.rightPressed == true){
-            direction = "right";
-            x += speed;
+
     }
-    spriteCounter++; //player image changes every 10 frames
-    if (spriteCounter > 10){
-        if(spriteNum == 1){
-            spriteNum = 2;
-        }
-        else if (spriteNum == 2){
-            spriteNum = 1;
-        }
-        spriteCounter = 0;
-    }
-}
 
     public void draw(Graphics2D g2){
         BufferedImage image = null;
+
         if (direction.equals("up")){
             if (spriteNum == 1){
-                image = playerUp;  
+                image = playerUp2;  
             }
             if (spriteNum ==2){
                 image = playerUp1;
             }
-        }else if (direction.equals("down")){
+            if (spriteNum == 3){
+                image = playerUp;
+            }
+        } else if (direction.equals("down")){
             if (spriteNum == 1){
-                image = playerDown; 
+                image = playerDown2;  
             }
             if (spriteNum ==2){
                 image = playerDown1;
             }
-        }else if (direction.equals("left")){
-            if (spriteNum == 1){
+            if (spriteNum == 3){
+                image = playerDown;
+            }
+        } else if (direction.equals("left")){
+            if (spriteNum == 1 || spriteNum == 3){
                 image = playerLeft;
             }
-            if (spriteNum ==2){
+            if (spriteNum == 2){
                 image = playerLeft1;
             }
-        }else if (direction.equals("right")){
-            if (spriteNum == 1){
+        } else if (direction.equals("right")){
+            if (spriteNum == 1 || spriteNum == 3){
                 image = playerRight;
             }
             if (spriteNum ==2){

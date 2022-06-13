@@ -22,43 +22,44 @@ public class MyKeyListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
-        int code = e.getKeyCode();// returns integer associated with each key
+        int code = e.getKeyCode(); // returns integer associated with each key
 
         if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
-        upPressed = true;
+            upPressed = true;
         }
 
         if (code == KeyEvent.VK_DOWN) { // if 'down arrow' is pressed
-        downPressed = true;
+            downPressed = true;
         }
 
         if (code == KeyEvent.VK_LEFT) { // if 'left arrow' is pressed
-        leftPressed = true;
+            leftPressed = true;
         }
 
         if (code == KeyEvent.VK_RIGHT) { // if 'right arrow' is pressed
-        rightPressed = true;
+            rightPressed = true;
         }
 
     }
+
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();// returns integer associated with each key
        
-        if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
-        upPressed = false;
+        if (code == KeyEvent.VK_UP) { // if 'up arrow' was previously pressed
+            upPressed = false;
         }
 
-        if (code == KeyEvent.VK_DOWN) { // if 'down arrow' is pressed
-        downPressed = false;
+        if (code == KeyEvent.VK_DOWN) { // if 'down arrow' was previously pressed
+            downPressed = false;
         }
 
-        if (code == KeyEvent.VK_LEFT) { // if 'left arrow' is pressed
-        leftPressed = false;
+        if (code == KeyEvent.VK_LEFT) { // if 'left arrow' was previously pressed
+            leftPressed = false;
         }
 
-        if (code == KeyEvent.VK_RIGHT) { // if 'right arrow' is pressed
-        rightPressed = false;
+        if (code == KeyEvent.VK_RIGHT) { // if 'right arrow' was previously pressed
+            rightPressed = false;
         }
     }
 }
