@@ -1,3 +1,10 @@
+ /**
+  * MyKeyListener
+  * Desc: Sets up and runs key functions
+  * @author Cynthia L & Phoebe Y ICS4U
+  * @version 1.2 Jun 2022
+  */
+
 package main;
 
 import java.awt.event.KeyEvent;

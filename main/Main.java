@@ -1,8 +1,9 @@
-/* BeewareOfTheGarden
- * Desc: INSERT
- * @Cynthia L & Phoebe Y ICS4U
- * @version Jun 2022
- */
+ /**
+  * Main
+  * Desc: Sets up window function and runs program
+  * @author Cynthia L & Phoebe Y ICS4U
+  * @version 1.2 Jun 2022
+  */
 
  package main;
  import javax.swing.JFrame;

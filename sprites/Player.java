@@ -1,9 +1,16 @@
+ /**
+  * Player
+  * Desc: Sets up and runs player functions
+  * @author Cynthia L & Phoebe Y ICS4U
+  * @version 1.2 Jun 2022
+  */
+
 package sprites;
 
 import main.GamePanel;
 import main.MyKeyListener;
 import java.awt.Graphics2D;
-import java.awt.Color;
+//import java.awt.Color;
 
 // the following imports are needed for pictures
 import java.io.File;

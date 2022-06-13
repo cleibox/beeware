@@ -1,3 +1,10 @@
+ /**
+  * Sprites
+  * Desc: Sets up and runs sprite funtions
+  * @author Cynthia L & Phoebe Y ICS4U
+  * @version 1.2 Jun 2022
+  */
+
 package sprites;
 
 import java.awt.image.BufferedImage;

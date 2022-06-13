@@ -1,8 +1,11 @@
-/* BeewareOfTheGarden
- * Desc: INSERT
- * @Cynthia L & Phoebe Y ICS4U
- * @version Jun 2022
- */
+ /**
+  * GamePanel
+  * Desc: Sets up and runs game functions
+  * @author Cynthia L & Phoebe Y ICS4U
+  * @version 1.2 Jun 2022
+  */
+
+
 package main;
 
 import java.awt.Color;
