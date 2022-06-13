@@ -91,7 +91,7 @@ public class Player extends Sprites {
                 spriteCounter = 0;
             }
         }
-        else { // idling 
+        else { // idling up/down
             if (direction.equals("up") || direction.equals("down")){
                 spriteNum = 3;
             }
