@@ -52,8 +52,6 @@ public class MyKeyListener implements KeyListener {
                     }
                     if (game.ui.commandNum == 1){ // chose "RULES"
                         game.ui.rulesScreen = 1;
-                        System.out.println("game.ui.rulesScreen" + game.ui.rulesScreen);
-                        System.out.println("change to rules screen");
                     }
                     if (game.ui.commandNum == 2){ // chose "QUIT"
                         System.exit(0);
@@ -88,12 +86,6 @@ public class MyKeyListener implements KeyListener {
                 System.exit(0); // quit
             }
         }
-        
-        // if (game.gameScreen == game.rulesScreen){
-        //     if (code == KeyEvent.VK_ENTER){
-        //         game.gameScreen = game.titleScreen;
-        //     }
-        // }
 
     }
 
