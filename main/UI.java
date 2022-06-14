@@ -15,6 +15,8 @@ import java.awt.Color;
 public class UI {
     GamePanel game;
     Graphics2D g2;
+
+    public int commandNum = 0;
     
     public UI(GamePanel game){
         this.game = game;        
@@ -36,19 +38,46 @@ public class UI {
         g2.fillRect(0, 0, game.screenWidth, game.screenHeight);
 
         // Title Name text
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
-        String titleText = "BEEware of the Garden";
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,52F));
+        String text = "BEEware of the Garden";
         
-        int x = getXforCenteredText(titleText);
+        int x = getXforCenteredText(text);
         int y = game.tileSize*3;
 
         g2.setColor(Color.white);
-        g2.drawString(titleText, x, y);
+        g2.drawString(text, x, y);
 
         // player mascot image slay
         x = game.screenWidth/2 - game.tileSize;
-        y += game.tileSize*2;
+        y += game.tileSize;
         g2.drawImage(game.user.playerLeft1, x, y, game.tileSize*2, game.tileSize*2, null);
+
+        // Menu
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
+        
+        text = "PLAY";
+        x = getXforCenteredText(text);
+        y += game.tileSize*4;
+        g2.drawString(text, x, y);
+        if (commandNum == 0){ // selection arrow 
+            g2.drawString(">", x-game.tileSize, y);
+        }
+
+        text = "RULES";
+        x = getXforCenteredText(text);
+        y += game.tileSize*1.5;
+        g2.drawString(text, x, y);
+        if (commandNum == 1){ // selection arrow 
+            g2.drawString(">", x-game.tileSize, y);
+        }
+
+        text = "QUIT";
+        x = getXforCenteredText(text);
+        y += game.tileSize*1.5;
+        g2.drawString(text, x, y);
+        if (commandNum == 2){ // selection arrow 
+            g2.drawString(">", x-game.tileSize, y);
+        }
 
     }
 

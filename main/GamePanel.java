@@ -35,9 +35,18 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     // setting FPS (Frames per Second)
     int FPS = 60;
 
-    MyKeyListener key = new MyKeyListener(); // tracks the inputted keys 
+    MyKeyListener key = new MyKeyListener(this); // tracks the inputted keys 
 
     Thread gameThread;// once started, keeps game running
+
+    public UI ui = new UI(this);
+
+    // ----------------------------------------------------------|
+    // DIFFERENT SCREENS ----------------------------------------|
+    // ----------------------------------------------------------|
+    public int gameScreen;
+    public final int titleScreen = 0;
+    public final int playScreen = 1;
     
     // ----------------------------------------------------------|
     // PLAYER SETTINGS ------------------------------------------|
@@ -59,6 +68,10 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
         this.setFocusable (true); // GamePanel can focus on receiving key input
     }
 
+    public void setupGame(){
+        gameScreen = titleScreen; // begins with the title screen
+    }
+    
     public void startGameThread(){
         gameThread = new Thread(this); // passing gamepanel as parameter
         gameThread.start();
@@ -92,8 +105,18 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     public void paintComponent (Graphics g){
         super.paintComponent(g); 
         Graphics2D g2 = (Graphics2D)g; // more refined graphics 
-        user.draw(g2); // using draw method from player class
-        g2.dispose();
+
+        // Title Screen
+        if (gameScreen == titleScreen){
+            ui.draw(g2);
+        }
+        else {
+            // draw in the player
+            user.draw(g2); // using draw method from player class
+            g2.dispose();
+
+        }
+
     }
 
 }

@@ -27,6 +27,7 @@
         window.setVisible(true);
 
         gamePanel.startGameThread(); // the game loop starts here
+        gamePanel.setupGame();
 
      }
     }

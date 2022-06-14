@@ -9,10 +9,15 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.KeyException;
 
 public class MyKeyListener implements KeyListener {
-
+    GamePanel game;
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+
+    public MyKeyListener(GamePanel game){
+        this.game = game;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -21,23 +26,53 @@ public class MyKeyListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
         int code = e.getKeyCode(); // returns integer associated with each key
 
-        if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
-            upPressed = true;
-        }
+        // Title Screen
+        if (game.gameScreen == game.titleScreen){
+            if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
+                game.ui.commandNum--;
+                System.out.println(game.ui.commandNum);
+                if (game.ui.commandNum < 0){ // let the choosing arrow loop through the choices
+                    game.ui.commandNum = 2;
+                }
+            }
+    
+            if (code == KeyEvent.VK_DOWN) { // if 'down arrow' is pressed
+                game.ui.commandNum++;
+                if (game.ui.commandNum > 2){
+                    game.ui.commandNum = 0;
+                }
+            }
 
-        if (code == KeyEvent.VK_DOWN) { // if 'down arrow' is pressed
-            downPressed = true;
-        }
+            if (code == KeyEvent.VK_ENTER){
+                if (game.ui.commandNum == 0){ // chose "PLAY"
+                    game.gameScreen = game.playScreen;
+                }
+                if (game.ui.commandNum == 2){ // chose "QUIT"
+                    System.exit(0);
+                }
+            }
 
-        if (code == KeyEvent.VK_LEFT) { // if 'left arrow' is pressed
-            leftPressed = true;
         }
-
-        if (code == KeyEvent.VK_RIGHT) { // if 'right arrow' is pressed
-            rightPressed = true;
+        
+        // Game screen
+        if (game.gameScreen == game.playScreen){
+            if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
+                upPressed = true;
+            }
+    
+            if (code == KeyEvent.VK_DOWN) { // if 'down arrow' is pressed
+                downPressed = true;
+            }
+    
+            if (code == KeyEvent.VK_LEFT) { // if 'left arrow' is pressed
+                leftPressed = true;
+            }
+    
+            if (code == KeyEvent.VK_RIGHT) { // if 'right arrow' is pressed
+                rightPressed = true;
+            }
         }
 
     }
