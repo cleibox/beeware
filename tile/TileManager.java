@@ -3,23 +3,28 @@ package tile;
 import main.GamePanel;
 
 import java.awt.Graphics2D;
-
+import java.io.BufferedReader;
 // the following imports are needed for pictures
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
 public class TileManager {
     
     GamePanel game;
     Tile[] tile;
+    int mapTileNum[][];
 
     //tile constructor
     public TileManager (GamePanel game){
     this.game = game;
     tile = new Tile[10];//create 10 kinds of tiles
+    mapTileNum = new int[game.maxScreenCol][game.maxScreenRow];//storing all number from map text file
 
     getTileImage();
+    loadMap();
     }
 
     //method to import images
@@ -44,6 +49,39 @@ public class TileManager {
             ex.printStackTrace();
         }
     }
+
+    public void loadMap(){
+        try{
+            InputStream input = getClass().getResourceAsStream ("map.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+
+            int column = 0;
+            int row = 0;
+
+            while(column < game.maxScreenCol && row < game.maxScreenRow){
+                String line = reader.readLine(); //reading the text file (map)
+
+                while (column < game.maxScreenCol){
+                    String numbers[] = line.split(" ");//splits string around macthes of the regular expression
+
+                    //changing string to integer
+                    int num = Integer.parseInt(numbers[column]); //column is the index for numbers array
+                    
+                    mapTileNum[column][row] = num;
+                    column++;
+                }  
+                //if max screen width is reached reset and move onto next row
+                if(column == game.maxScreenCol){
+                    column = 0;
+                    row++;
+                }
+                reader.close();
+            }
+
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
     public void draw (Graphics2D g2){
 
         int column = 0;
@@ -52,7 +90,11 @@ public class TileManager {
         int y = 0;
 
         while(column < game.maxScreenCol && row < game.maxScreenRow){
-            g2.drawImage(tile[0].image , x, y, game.tileSize, game.tileSize, null);
+
+            //CAN DELETE THIS COMMENT but everything in map is stored in mapTileNume array
+            int tileNum = mapTileNum[column][row];//extracting a tile mumber stored in mapTile[0][0]
+
+            g2.drawImage(tile[tileNum].image, x, y, game.tileSize, game.tileSize, null);
             
             //drawing the next tile
             column++;
