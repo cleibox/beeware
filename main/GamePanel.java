@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import sprites.Player;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{ // implements Runnable to run thread
     // ----------------------------------------------------------|
@@ -25,12 +26,12 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
 
     // Screen resolution (16px by 12 px)
     // Screen Horizontal
-    final int maxScreenCol = 16;  
-    final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int maxScreenCol = 16;  
+    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
 
     // Screen Vertical
-    final int maxScreenRow = 12; 
-    final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    public final int maxScreenRow = 12; 
+    public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     // setting FPS (Frames per Second)
     int FPS = 60;
@@ -38,6 +39,8 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     MyKeyListener key = new MyKeyListener(this); // tracks the inputted keys 
 
     Thread gameThread;// once started, keeps game running
+
+    TileManager tile = new TileManager (this);
 
     public UI ui = new UI(this);
 
@@ -51,12 +54,7 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     // ----------------------------------------------------------|
     // PLAYER SETTINGS ------------------------------------------|
     // ----------------------------------------------------------|
-    Player user = new Player (this, key);
-
-    // Set player's default position
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4; // moves 4 pixels 
+    Player user = new Player (this, key); 
 
     public GamePanel () {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // set size of the JPanel
@@ -104,13 +102,16 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
 
     public void paintComponent (Graphics g){
         super.paintComponent(g); 
-        Graphics2D g2 = (Graphics2D)g; // more refined graphics 
+        Graphics2D g2 = (Graphics2D)g; // more refined graphics
 
         // Title Screen
         if (gameScreen == titleScreen){
             ui.draw(g2);
         }
         else {
+            //draw in the tiles
+            tile.draw(g2);//calling draw method in TileManager class
+
             // draw in the player
             user.draw(g2); // using draw method from player class
             g2.dispose();
