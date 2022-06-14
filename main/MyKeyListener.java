@@ -30,30 +30,41 @@ public class MyKeyListener implements KeyListener {
 
         // Title Screen
         if (game.gameScreen == game.titleScreen){
-            if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
-                game.ui.commandNum--;
-                System.out.println(game.ui.commandNum);
-                if (game.ui.commandNum < 0){ // let the choosing arrow loop through the choices
-                    game.ui.commandNum = 2;
+            if (game.ui.rulesScreen == 0){
+                if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
+                    game.ui.commandNum--;
+                    System.out.println(game.ui.commandNum);
+                    if (game.ui.commandNum < 0){ // let the choosing arrow loop through the choices
+                        game.ui.commandNum = 2;
+                    }
                 }
-            }
+        
+                if (code == KeyEvent.VK_DOWN) { // if 'down arrow' is pressed
+                    game.ui.commandNum++;
+                    if (game.ui.commandNum > 2){
+                        game.ui.commandNum = 0;
+                    }
+                }
     
-            if (code == KeyEvent.VK_DOWN) { // if 'down arrow' is pressed
-                game.ui.commandNum++;
-                if (game.ui.commandNum > 2){
-                    game.ui.commandNum = 0;
+                if (code == KeyEvent.VK_ENTER){
+                    if (game.ui.commandNum == 0){ // chose "PLAY"
+                        game.gameScreen = game.playScreen;    
+                    }
+                    if (game.ui.commandNum == 1){ // chose "RULES"
+                        game.ui.rulesScreen = 1;
+                        System.out.println("game.ui.rulesScreen" + game.ui.rulesScreen);
+                        System.out.println("change to rules screen");
+                    }
+                    if (game.ui.commandNum == 2){ // chose "QUIT"
+                        System.exit(0);
+                    }
                 }
             }
-
-            if (code == KeyEvent.VK_ENTER){
-                if (game.ui.commandNum == 0){ // chose "PLAY"
-                    game.gameScreen = game.playScreen;
-                }
-                if (game.ui.commandNum == 2){ // chose "QUIT"
-                    System.exit(0);
-                }
+            else if (game.ui.rulesScreen == 1){ // returning after the rule screen
+                if (code == KeyEvent.VK_ENTER){
+                    game.ui.rulesScreen = 0;
+                }  
             }
-
         }
         
         // Game screen
@@ -73,7 +84,16 @@ public class MyKeyListener implements KeyListener {
             if (code == KeyEvent.VK_RIGHT) { // if 'right arrow' is pressed
                 rightPressed = true;
             }
+            if (code == KeyEvent.VK_ESCAPE) { // if 'escape' key is pressed
+                System.exit(0); // quit
+            }
         }
+        
+        // if (game.gameScreen == game.rulesScreen){
+        //     if (code == KeyEvent.VK_ENTER){
+        //         game.gameScreen = game.titleScreen;
+        //     }
+        // }
 
     }
 
