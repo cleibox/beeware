@@ -24,7 +24,7 @@ public class TileManager {
     mapTileNum = new int[game.maxScreenCol][game.maxScreenRow];//storing all number from map text file
 
     getTileImage();
-    loadMap();
+    loadMap("map.txt");
     }
 
     //method to import images
@@ -50,9 +50,9 @@ public class TileManager {
         }
     }
 
-    public void loadMap(){
+    public void loadMap(String filePath){
         try{
-            InputStream input = getClass().getResourceAsStream ("map.txt");
+            InputStream input = getClass().getResourceAsStream (filePath);
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
             int column = 0;
@@ -75,8 +75,8 @@ public class TileManager {
                     column = 0;
                     row++;
                 }
-                reader.close();
             }
+            reader.close();
 
         }catch(Exception ex){
             ex.printStackTrace();
@@ -109,11 +109,6 @@ public class TileManager {
             }
 
         }
-
-        //g2.drawImage(tile[0].image, 0, 0, game.tileSize, game.tileSize, null);
-        //g2.drawImage(tile[1].image, 48, 0, game.tileSize, game.tileSize, null);
-        //g2.drawImage(tile[2].image, 96, 0, game.tileSize, game.tileSize, null);
-
 
     }
 
