@@ -54,7 +54,7 @@ public class Player extends Sprites {
     public void setDefault(){
         mapX= game.tileSize * 25;
         mapY = game.tileSize * 25;
-        speed = 4;
+        speed = 6;
         direction = "down";
     }
 
