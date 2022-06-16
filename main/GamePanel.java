@@ -36,6 +36,15 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     // setting FPS (Frames per Second)
     int FPS = 60;
 
+    // ----------------------------------------------------------|
+    // MAP SETTINGS -------------------------------------------|
+    // ----------------------------------------------------------|
+    //50 x 50 map
+    public final int maxMapCol = 50;
+    public final int maxMapRow = 50;
+    public final int mapWidth = tileSize * maxMapCol;
+    public final int mapHeight = tileSize * maxMapRow;
+
     MyKeyListener key = new MyKeyListener(this); // tracks the inputted keys 
 
     Thread gameThread;// once started, keeps game running
@@ -54,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     // ----------------------------------------------------------|
     // PLAYER SETTINGS ------------------------------------------|
     // ----------------------------------------------------------|
-    Player user = new Player (this, key); 
+    public Player user = new Player (this, key); 
 
     public GamePanel () {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // set size of the JPanel

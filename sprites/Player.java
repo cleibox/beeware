@@ -23,18 +23,26 @@ public class Player extends Sprites {
     GamePanel game;
     MyKeyListener key;
 
+    public final int screenX;
+    public final int screenY;
+
     //player constructor
     public Player(GamePanel game, MyKeyListener key){
         this.game = game;
         this.key = key;
 
+        //setting player at center of the game screen
+        screenX= (game.screenWidth/2)-18;
+        screenY= (game.screenHeight/2)-25;
+
         setDefault();
         getPlayerImage();
     }
 
+    //player starting position on map (center)
     public void setDefault(){
-        x = 100;
-        y = 100;
+        mapX= game.tileSize * 25;
+        mapY = game.tileSize * 25;
         speed = 4;
         direction = "down";
     }
@@ -65,19 +73,19 @@ public class Player extends Sprites {
                 
             if (key.upPressed == true){
                 direction = "up";
-                y -= speed;
+                mapY-= speed;
             }
             else if (key.downPressed == true){
                 direction = "down";
-                y += speed;
+                mapY+= speed;
             }
             else if (key.leftPressed == true){
                 direction = "left";
-                x -= speed;
+                mapX-= speed;
             }
             else if (key.rightPressed == true){
                 direction = "right";
-                x += speed;
+                mapX+= speed;
             }
     
             spriteCounter++; //player image changes every 10 frames
@@ -138,6 +146,6 @@ public class Player extends Sprites {
             }
         }
         //drawing image on screen
-        g2.drawImage(image, x, y, game.tileSize, game.tileSize, null);
+        g2.drawImage(image, screenX, screenY, game.tileSize, game.tileSize, null);
     }
 }

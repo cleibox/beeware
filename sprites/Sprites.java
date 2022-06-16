@@ -10,7 +10,7 @@ package sprites;
 import java.awt.image.BufferedImage;
 
 public class Sprites {
-    public int x, y;
+    public int mapX, mapY;
     public int speed;
     
     public BufferedImage beeLeft, beeRight;

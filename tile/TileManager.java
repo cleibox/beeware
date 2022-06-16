@@ -1,3 +1,10 @@
+ /**
+  * TileManager
+  * Desc: Manages and runs tile funtions
+  * @author Cynthia L & Phoebe Y ICS4U
+  * @version 1.2 Jun 2022
+  */
+
 package tile;
 
 import main.GamePanel;
@@ -21,7 +28,7 @@ public class TileManager {
     public TileManager (GamePanel game){
     this.game = game;
     tile = new Tile[10];//create 10 kinds of tiles
-    mapTileNum = new int[game.maxScreenCol][game.maxScreenRow];//storing all number from map text file
+    mapTileNum = new int[game.maxMapCol][game.maxMapRow];//storing all number from map text file
 
     getTileImage();
     loadMap("map.txt");
@@ -44,6 +51,18 @@ public class TileManager {
             tile[2] = new Tile ();
             tile[2].image = ImageIO.read(new File ("images/stone.png"));
 
+            //bush tile
+            tile[3] = new Tile ();
+            tile[3].image = ImageIO.read(new File ("images/bush.png"));
+
+            //dirt tile
+            tile[4] = new Tile ();
+            tile[4].image = ImageIO.read(new File ("images/dirt.png"));
+
+            //sand tile
+            tile[5] = new Tile ();
+            tile[5].image = ImageIO.read(new File ("images/sand.png"));
+
 
         }catch(IOException ex){
             ex.printStackTrace();
@@ -58,10 +77,10 @@ public class TileManager {
             int column = 0;
             int row = 0;
 
-            while(column < game.maxScreenCol && row < game.maxScreenRow){
+            while(column < game.maxMapCol && row < game.maxMapRow){
                 String line = reader.readLine(); //reading the text file (map)
 
-                while (column < game.maxScreenCol){
+                while (column < game.maxMapCol){
                     String numbers[] = line.split(" ");//splits string around macthes of the regular expression
 
                     //changing string to integer
@@ -71,7 +90,7 @@ public class TileManager {
                     column++;
                 }  
                 //if max screen width is reached reset and move onto next row
-                if(column == game.maxScreenCol){
+                if(column == game.maxMapCol){
                     column = 0;
                     row++;
                 }
@@ -84,28 +103,37 @@ public class TileManager {
     }
     public void draw (Graphics2D g2){
 
-        int column = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
+        int mapColumn = 0;
+        int mapRow = 0;
 
-        while(column < game.maxScreenCol && row < game.maxScreenRow){
+        while(mapColumn < game.maxMapCol && mapRow < game.maxMapRow){
 
             //CAN DELETE THIS COMMENT but everything in map is stored in mapTileNume array
-            int tileNum = mapTileNum[column][row];//extracting a tile mumber stored in mapTile[0][0]
-
-            g2.drawImage(tile[tileNum].image, x, y, game.tileSize, game.tileSize, null);
+            int tileNum = mapTileNum[mapColumn][mapRow];//extracting a tile mumber stored in mapTile[0][0]
             
-            //drawing the next tile
-            column++;
-            x += game.tileSize;
+            //player position on MAP
+            int mapX = mapColumn * game.tileSize;
+            int mapY = mapRow * game.tileSize;
 
-            //if max screen width is reached reset and move onto next row
-            if(column == game.maxScreenCol){
-                column = 0;
-                x = 0;
-                row++;
-                y += game.tileSize;
+            //player position on SCREEN           (below is offset)
+            int screenX = mapX - game.user.mapX + game.user.screenX;
+            int screenY = mapY - game.user.mapY + game.user.screenY;
+
+            //only draw tiles within screen (not entire map) --> more efficient, less glitchy
+            if (((mapX + game.tileSize) > (game.user.mapX - game.user.screenX)) && 
+                ((mapX - game.tileSize) < (game.user.mapX + game.user.screenX)) &&
+                ((mapY + game.tileSize) > (game.user.mapY - game.user.screenY)) &&
+                ((mapY - game.tileSize) < (game.user.mapY + game.user.screenY))){
+            g2.drawImage(tile[tileNum].image, screenX, screenY, game.tileSize, game.tileSize, null);
+            }
+
+            //drawing the next tile
+            mapColumn++;
+
+            //if max map width is reached reset and move onto next row
+            if(mapColumn == game.maxMapCol){
+                mapColumn = 0;
+                mapRow++;
             }
 
         }
