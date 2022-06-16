@@ -18,27 +18,23 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
-public class TileManager {
-    
+public class TileManager { 
     GamePanel game;
     public Tile[] tile;
     public int mapTileNum[][];
 
     //tile constructor
     public TileManager (GamePanel game){
-    this.game = game;
-    tile = new Tile[10];//create 10 kinds of tiles
-    mapTileNum = new int[game.maxMapCol][game.maxMapRow];//storing all number from map text file
-
-    getTileImage();
-    loadMap("map.txt");
+        this.game = game;
+        tile = new Tile[10];//create 10 kinds of tiles
+        mapTileNum = new int[game.maxMapCol][game.maxMapRow];//storing all number from map text file
+        getTileImage();
+        loadMap("map.txt");
     }
 
     //method to import images
     public void getTileImage (){
-
         try{
-
             //grass tile
             tile[0] = new Tile ();
             tile[0].image = ImageIO.read(new File ("images/grass.png"));
@@ -64,7 +60,6 @@ public class TileManager {
             //sand tile
             tile[5] = new Tile ();
             tile[5].image = ImageIO.read(new File ("images/sand.png"));
-
 
         }catch(IOException ex){
             ex.printStackTrace();
@@ -103,16 +98,16 @@ public class TileManager {
             ex.printStackTrace();
         }
     }
+    
     public void draw (Graphics2D g2){
 
         int mapColumn = 0;
         int mapRow = 0;
 
         while(mapColumn < game.maxMapCol && mapRow < game.maxMapRow){
-
             //CAN DELETE THIS COMMENT but everything in map is stored in mapTileNume array
             int tileNum = mapTileNum[mapColumn][mapRow];//extracting a tile mumber stored in mapTile[0][0]
-            
+          
             //player position on MAP
             int mapX = mapColumn * game.tileSize;
             int mapY = mapRow * game.tileSize;

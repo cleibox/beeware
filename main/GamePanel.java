@@ -12,6 +12,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import javax.swing.JPanel;
+
+import objects.SuperObject;
 import sprites.Player;
 import tile.TileManager;
 
@@ -67,6 +69,12 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     // ----------------------------------------------------------|
     public Player user = new Player (this, key); 
 
+    // ----------------------------------------------------------|
+    // OBJECT SETTINGS ------------------------------------------|
+    // ----------------------------------------------------------|
+    public SuperObject obj[] = new SuperObject[10]; // 10 objects can be created at a time
+    public AssetSetter aSetter = new AssetSetter(this); // initiate
+
     public GamePanel () {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // set size of the JPanel
         this.setBackground(Color.black);
@@ -81,6 +89,10 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
         gameScreen = titleScreen; // begins with the title screen
     }
     
+    public void setUpGame() {
+        aSetter.setObject(); // spawns objects before game starts
+    }
+
     public void startGameThread(){
         gameThread = new Thread(this); // passing gamepanel as parameter
         gameThread.start();
@@ -122,6 +134,13 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
         else {
             //draw in the tiles
             tile.draw(g2);//calling draw method in TileManager class
+
+            // draw in the object
+            for (int i = 0; i < obj.length; i++){
+                if (obj[i] != null){
+                    obj[i].draw(g2, this); // drawing the object from the object slot
+                }
+            }
 
             // draw in the player
             user.draw(g2); // using draw method from player class

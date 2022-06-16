@@ -26,6 +26,7 @@
         window.setLocationRelativeTo(null); //window will be displyed at the center of the screen 
         window.setVisible(true);
 
+        gamePanel.setUpGame();
         gamePanel.startGameThread(); // the game loop starts here
         gamePanel.setupGame();
 

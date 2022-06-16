@@ -113,7 +113,6 @@ public class UI {
     }
 
     public void drawRulesScreen(){
-        System.out.println("HIHFDSFDSFDS");
         // Title Background 
          g2.setColor(new Color(193, 225, 193));
          g2.fillRect(0, 0, game.screenWidth, game.screenHeight);
