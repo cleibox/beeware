@@ -21,8 +21,8 @@ import javax.imageio.ImageIO;
 public class TileManager {
     
     GamePanel game;
-    Tile[] tile;
-    int mapTileNum[][];
+    public Tile[] tile;
+    public int mapTileNum[][];
 
     //tile constructor
     public TileManager (GamePanel game){
@@ -43,13 +43,15 @@ public class TileManager {
             tile[0] = new Tile ();
             tile[0].image = ImageIO.read(new File ("images/grass.png"));
 
-            //brick tile tile
+            //brick tile tile --> solid
             tile[1] = new Tile ();
             tile[1].image = ImageIO.read(new File ("images/brick.png"));
+            tile [1].collision = true;
 
-            //stone tile
+            //stone tile --> solid
             tile[2] = new Tile ();
             tile[2].image = ImageIO.read(new File ("images/stone.png"));
+            tile[2].collision = true;
 
             //bush tile
             tile[3] = new Tile ();

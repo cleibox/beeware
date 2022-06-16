@@ -49,6 +49,8 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
 
     Thread gameThread;// once started, keeps game running
 
+    public CollisionDetection detector = new CollisionDetection(this);
+
     TileManager tile = new TileManager (this);
 
     public UI ui = new UI(this);

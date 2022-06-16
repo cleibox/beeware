@@ -8,6 +8,7 @@
 package sprites;
 
 import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 
 public class Sprites {
     public int mapX, mapY;
@@ -20,7 +21,10 @@ public class Sprites {
     public BufferedImage playerRight, playerRight1;
 
     public String direction;
-
     public int spriteCounter = 0;
     public int spriteNum = 1;
+
+    //collision detection
+    public Rectangle solid;
+    public boolean collided = false;
 }

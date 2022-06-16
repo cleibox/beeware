@@ -16,6 +16,8 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Player extends Sprites {
@@ -34,6 +36,15 @@ public class Player extends Sprites {
         //setting player at center of the game screen
         screenX= (game.screenWidth/2)-18;
         screenY= (game.screenHeight/2)-25;
+
+        //collision detection rectangle
+        //player properties
+        int playerX = 8;
+        int playerY = 18;
+        int playerH = 32;
+        int playerW = 24;
+        solid = new Rectangle(playerX, playerY, playerH, playerW);
+
 
         setDefault();
         getPlayerImage();
@@ -71,21 +82,35 @@ public class Player extends Sprites {
         if (key.upPressed == true || key.downPressed == true || 
             key.leftPressed == true || key.rightPressed == true){
                 
+            //checking for direction    
             if (key.upPressed == true){
                 direction = "up";
-                mapY-= speed;
             }
             else if (key.downPressed == true){
                 direction = "down";
-                mapY+= speed;
             }
             else if (key.leftPressed == true){
                 direction = "left";
-                mapX-= speed;
             }
             else if (key.rightPressed == true){
                 direction = "right";
-                mapX+= speed;
+            }
+
+            //checking for tile collision
+            collided = false;
+            game.detector.tileDetection(this);
+
+            //ALLOWS movement only if collision is NOT detected
+            if (collided == false ){
+                if (direction.equals ("up")){
+                    mapY-= speed;
+                } else if (direction.equals("down")){
+                    mapY+= speed;
+                } else if (direction.equals("left")){
+                    mapX-= speed;
+                }else if (direction.equals("right")){
+                    mapX+= speed;
+                }
             }
     
             spriteCounter++; //player image changes every 10 frames
