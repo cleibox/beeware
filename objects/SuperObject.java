@@ -10,12 +10,16 @@ package objects;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import main.GamePanel;
+import java.awt.Rectangle;
 
 public class SuperObject {
     public BufferedImage image;
     public String name;
     public boolean collision = false;
     public int mapX, mapY;
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 48); // collision area
+    public int solidAreaDefaultX = 0;
+    public int solidAreaDefaultY = 0;
 
     public void draw(Graphics2D g2, GamePanel game) {
         // player position on SCREEN (below is offset)

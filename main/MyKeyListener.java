@@ -33,7 +33,6 @@ public class MyKeyListener implements KeyListener {
             if (game.ui.rulesScreen == 0){
                 if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
                     game.ui.commandNum--;
-                    System.out.println(game.ui.commandNum);
                     if (game.ui.commandNum < 0){ // let the choosing arrow loop through the choices
                         game.ui.commandNum = 2;
                     }

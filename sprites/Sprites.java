@@ -27,4 +27,6 @@ public class Sprites {
     //collision detection
     public Rectangle solid;
     public boolean collided = false;
+    
+    public int solidAreaDefaultX, solidAreaDefaultY; 
 }

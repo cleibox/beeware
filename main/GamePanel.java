@@ -88,10 +88,6 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     public void setupGame(){
         gameScreen = titleScreen; // begins with the title screen
     }
-    
-    public void setUpGame() {
-        aSetter.setObject(); // spawns objects before game starts
-    }
 
     public void startGameThread(){
         gameThread = new Thread(this); // passing gamepanel as parameter

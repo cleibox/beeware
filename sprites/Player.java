@@ -24,9 +24,12 @@ public class Player extends Sprites {
     
     GamePanel game;
     MyKeyListener key;
-
+    
     public final int screenX;
     public final int screenY;
+    
+    // Objects
+    int numTulipCollected = 0;
 
     //player constructor
     public Player(GamePanel game, MyKeyListener key){
@@ -44,7 +47,10 @@ public class Player extends Sprites {
         int playerH = 32;
         int playerW = 24;
         solid = new Rectangle(playerX, playerY, playerH, playerW);
-
+        solid.x = 8;
+        solid.y = 16;
+        solidAreaDefaultX = solid.x;
+        solidAreaDefaultY = solid.y;
 
         setDefault();
         getPlayerImage();
@@ -100,6 +106,10 @@ public class Player extends Sprites {
             collided = false;
             game.detector.tileDetection(this);
 
+            // check object collisions
+            int objIndex = game.detector.checkObject(this, true); // this is player so it's true
+            pickUpObject(objIndex);
+
             //ALLOWS movement only if collision is NOT detected
             if (collided == false ){
                 if (direction.equals ("up")){
@@ -130,6 +140,22 @@ public class Player extends Sprites {
             }
         }
 
+    }
+
+    public void pickUpObject(int i){
+        if (i != 999) { // if not 999, then we have touched an object
+            String objectName = game.obj[i].name;
+            if (objectName.equals("Tulip")){
+                numTulipCollected++;
+                System.out.println("Total tulips: " + numTulipCollected);
+                game.obj[i] = null; // delete the object we touched
+                game.aSetter.spawnTulip();
+            }
+            else if (objectName.equals("Nightshade")){
+                game.obj[i] = null; // delete the object we touched
+                game.aSetter.spawnNightshade();
+            }
+        }
     }
 
     public void draw(Graphics2D g2){
