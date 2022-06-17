@@ -28,6 +28,8 @@ public class Player extends Sprites {
     public final int screenX;
     public final int screenY;
     
+    public int playerHealth = 30;
+    
     // Objects
     public int numTulipCollected = 0;
 
@@ -50,7 +52,7 @@ public class Player extends Sprites {
         solid.x = 8;
         solid.y = 16;
         solidAreaDefaultX = solid.x;
-        solidAreaDefaultY = solid.y;
+        solidAreaDefaultY = solid.y; 
 
         setDefault();
         getPlayerImage();
@@ -141,7 +143,6 @@ public class Player extends Sprites {
                 spriteNum = 3;
             }
         }
-
     }
 
     public void pickUpObject(int i){
@@ -156,6 +157,7 @@ public class Player extends Sprites {
             else if (objectName.equals("Nightshade")){
                 game.obj[i] = null; // delete the object we touched
                 game.aSetter.spawnNightshade();
+                game.user.playerHealth -= 2;
             }
         }
     }
@@ -164,6 +166,9 @@ public class Player extends Sprites {
         if (numTulipCollected == 1){
             game.gameScreen = game.endScreen;
         }
+        // if (this.playerHealth <= 0){
+        //     game.gameScreen = game.endScreen;
+        // }
     }
 
     public void draw(Graphics2D g2){
@@ -208,6 +213,6 @@ public class Player extends Sprites {
         g2.drawImage(image, screenX, screenY, game.tileSize, game.tileSize, null);
         
         game.timeLapsed += (double)1/60;
-        System.out.println("TIME" + game.timeLapsed); // measure time lapsed
+        // System.out.println("TIME" + game.timeLapsed); // measure time lapsed
     }
 }

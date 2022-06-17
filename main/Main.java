@@ -29,5 +29,5 @@ public class Main {
       game.aSetter.spawnNightshade();
       game.startGameThread(); // the game loop starts here
       game.setupGame();
-}
+   }
 }

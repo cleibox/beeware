@@ -152,6 +152,7 @@ public class UI {
         g2.setColor(Color.white);
         g2.drawString("Tulips: " + game.user.numTulipCollected, 25, game.tileSize);
 
+        g2. drawString("Health: " + game.user.playerHealth, 25, game.tileSize * 2);
     }
 
     public void drawEndScreen(){
