@@ -22,12 +22,15 @@ public class TileManager {
     GamePanel game;
     public Tile[] tile;
     public int mapTileNum[][];
+    public int mapTileNumPath[][][];
 
     //tile constructor
     public TileManager (GamePanel game){
         this.game = game;
         tile = new Tile[10];//create 10 kinds of tiles
         mapTileNum = new int[game.maxMapCol][game.maxMapRow];//storing all number from map text file
+        mapTileNumPath = new int[game.maxMap][game.maxMapCol][game.maxMapRow];
+        
         getTileImage();
         loadMap("map.txt");
     }

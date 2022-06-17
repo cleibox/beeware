@@ -15,10 +15,10 @@ import javax.swing.JPanel;
 
 import objects.SuperObject;
 import sprites.Player;
+import sprites.Sprites;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{ // implements Runnable to run thread
-    boolean gameOver = false;
     // ----------------------------------------------------------|
     // SCREEN SETTINGS ------------------------------------------|
     // ----------------------------------------------------------|
@@ -47,6 +47,8 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     public final int maxMapRow = 50;
     public final int mapWidth = tileSize * maxMapCol;
     public final int mapHeight = tileSize * maxMapRow;
+    public final int maxMap = 10;
+    public int currentMap = 0;
 
     MyKeyListener key = new MyKeyListener(this); // tracks the inputted keys 
 
@@ -55,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
 
     public CollisionDetection detector = new CollisionDetection(this);
 
-    TileManager tile = new TileManager (this);
+    public TileManager tile = new TileManager (this);
 
     public UI ui = new UI(this);
 
@@ -71,6 +73,12 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     // PLAYER SETTINGS ------------------------------------------|
     // ----------------------------------------------------------|
     public Player user = new Player (this, key); 
+
+    // ----------------------------------------------------------|
+    // MOB SETTINGS ---------------------------------------------|
+    // ----------------------------------------------------------|
+    public Sprites bee[] = new Sprites[200];
+    public int numSpawnedBees = 0;
 
     // ----------------------------------------------------------|
     // OBJECT SETTINGS ------------------------------------------|
@@ -120,8 +128,16 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     
     // Update information such as character positions
     public void update (){
-        user.update(); //using update method from player class
-      
+        if (gameScreen == playScreen){
+            user.update(); //using update method from player class
+           
+            // bee
+            for (int i = 0; i < bee.length; i++){
+                if (bee[i] != null){
+                   bee[i].update(); 
+                }
+            }
+        }
     }
 
     public void paintComponent (Graphics g){
@@ -143,6 +159,13 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
             for (int i = 0; i < obj.length; i++){
                 if (obj[i] != null){
                     obj[i].draw(g2, this); // drawing the object from the object slot
+                }
+            }
+
+            // draw in the bee
+            for (int i = 0; i < bee.length; i++){
+                if (bee[i] != null){
+                    bee[i].draw(g2); // drawing the object from the object slot
                 }
             }
 

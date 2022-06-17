@@ -62,7 +62,7 @@ public class UI {
             // player mascot image slay
             x = game.screenWidth/2 - game.tileSize;
                y += game.tileSize;
-            g2.drawImage(game.user.playerLeft1, x, y, game.tileSize*2, game.tileSize*2, null);
+            g2.drawImage(game.user.left1, x, y, game.tileSize*2, game.tileSize*2, null);
     
             // Menu
             g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));

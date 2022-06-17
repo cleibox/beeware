@@ -9,6 +9,7 @@ package main;
 
 import objects.NightshadeObject;
 import objects.TulipObject;
+import mob.Bee;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,6 +44,15 @@ public class AssetSetter {
         game.obj[1].mapY = spawnSet[1] * game.tileSize;
         
         System.out.println("SHADEmapX " + (game.obj[1].mapX)/game.tileSize + " mapY " + (game.obj[1].mapY)/game.tileSize);
+    }
+
+    public void spawnBee(){
+        int[] spawnSet = getRandomWorldCoordinates();
+        game.bee[game.numSpawnedBees] = new Bee(game);
+        game.bee[game.numSpawnedBees].mapX = spawnSet[0] * game.tileSize;
+        game.bee[game.numSpawnedBees].mapY = spawnSet[1] * game.tileSize;
+
+        game.numSpawnedBees++;
     }
     
     public int[] getRandomWorldCoordinates() {

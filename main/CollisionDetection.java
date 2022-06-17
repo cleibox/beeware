@@ -1,9 +1,9 @@
- /**
-  * CollisionDetection
-  * Desc: Checking for collisions in the game.
-  * @author Cynthia L & Phoebe Y ICS4U
-  * @version 1.2 Jun 2022
-  */
+/**
+ * CollisionDetection
+ * Desc: Checking for collisions in the game.
+ * @author Cynthia L & Phoebe Y ICS4U
+ * @version 1.2 Jun 2022
+ */
 
 package main;
 
@@ -150,4 +150,82 @@ public class CollisionDetection {
         
         return index;
     }
+
+     // check if the bee is hitting any objects
+     public int checkSprite(Sprites sprites, Sprites[] target){
+        int index = 999;
+
+        for (int i = 0; i < target.length; i++){
+            if (target[i] != null){
+                // get the sprite's solid area posotion
+                sprites.solid.x = sprites.mapX + sprites.solid.x;
+                sprites.solid.y = sprites.mapY + sprites.solid.y;
+                
+                // get the object's solid area position
+                target[i].solid.x = target[i].mapX + target[i].solid.x;
+                target[i].solid.y = target[i].mapY + target[i].solid.y;
+                
+                if (sprites.direction.equals("up")){
+                    sprites.solid.y -= sprites.speed;
+                    if (sprites.solid.intersects(target[i].solid)){
+                        sprites.collided = true;
+                        index = i;
+                        
+                    }
+                }
+                else if (sprites.direction.equals("down")){
+                    sprites.solid.y += sprites.speed;
+                    if (sprites.solid.intersects(target[i].solid)){
+                        sprites.collided = true;
+                        index = i;
+                    
+                    }
+                }
+                else if (sprites.direction.equals("left")){
+                    sprites.solid.x -= sprites.speed;
+                    if (sprites.solid.intersects(target[i].solid)){
+                        sprites.collided = true;
+                        index = i;
+                        
+                    }
+                }
+                else if (sprites.direction.equals("right")){
+                    sprites.solid.x += sprites.speed;
+                    if (sprites.solid.intersects(target[i].solid)){
+                        sprites.collided = true;             
+                        index = i;                 
+                    }
+                }
+                sprites.solid.x = sprites.solidAreaDefaultX;
+                sprites.solid.y = sprites.solidAreaDefaultY;
+                target[i].solid.x = target[i].solidAreaDefaultX;
+                target[i].solid.y = target[i].solidAreaDefaultY;
+
+            }
+        }
+        
+        return index;
+    }
+
+    public void checkPlayer(Sprites sprites){
+        // get the sprite's solid area position
+        sprites.solid.x = sprites.mapX + sprites.solid.x;
+        sprites.solid.y = sprites.mapY + sprites.solid.y;
+
+        // get the object's solid area position
+        game.user.solid.x = game.user.mapX + game.user.solid.x;
+        game.user.solid.y = game.user.mapY + game.user.solid.y;
+        
+        if (sprites.solid.intersects(game.user.solid)){
+                System.out.println("COLLIDE");
+                game.user.playerHealth -= 1;
+                // sprites.collided = true;                        
+            }
+       
+        sprites.solid.x = sprites.solidAreaDefaultX;
+        sprites.solid.y = sprites.solidAreaDefaultY;
+        game.user.solid.x = game.user.solidAreaDefaultX;
+        game.user.solid.y = game.user.solidAreaDefaultY;
+        
+    }   
 }

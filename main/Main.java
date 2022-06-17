@@ -27,6 +27,7 @@ public class Main {
       window.setVisible(true);
       game.aSetter.spawnTulip();
       game.aSetter.spawnNightshade();
+      game.aSetter.spawnBee();
       game.startGameThread(); // the game loop starts here
       game.setupGame();
    }
