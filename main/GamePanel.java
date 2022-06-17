@@ -18,6 +18,7 @@ import sprites.Player;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{ // implements Runnable to run thread
+    boolean gameOver = false;
     // ----------------------------------------------------------|
     // SCREEN SETTINGS ------------------------------------------|
     // ----------------------------------------------------------|
@@ -50,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     MyKeyListener key = new MyKeyListener(this); // tracks the inputted keys 
 
     Thread gameThread;// once started, keeps game running
+    public double timeLapsed;
 
     public CollisionDetection detector = new CollisionDetection(this);
 
@@ -63,7 +65,8 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     public int gameScreen;
     public final int titleScreen = 0;
     public final int playScreen = 1;
-    
+    public final int endScreen = 2;
+
     // ----------------------------------------------------------|
     // PLAYER SETTINGS ------------------------------------------|
     // ----------------------------------------------------------|
@@ -112,11 +115,13 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
                 delta--;
             }
         }
-    }
 
+    }
+    
     // Update information such as character positions
     public void update (){
         user.update(); //using update method from player class
+      
     }
 
     public void paintComponent (Graphics g){
@@ -124,13 +129,16 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
         Graphics2D g2 = (Graphics2D)g; // more refined graphics
 
         // Title Screen
-        if (gameScreen == titleScreen){
+        if (gameScreen != playScreen){
             ui.draw(g2);
         }
-        else {
+        else { // game screen is the game (play)
             //draw in the tiles
             tile.draw(g2);//calling draw method in TileManager class
-
+           
+            // draw in any text
+            ui.draw(g2);
+           
             // draw in the object
             for (int i = 0; i < obj.length; i++){
                 if (obj[i] != null){

@@ -1,37 +1,33 @@
- /**
-  * Main
-  * Desc: Sets up window function and runs program
-  * @author Cynthia L & Phoebe Y ICS4U
-  * @version 1.2 Jun 2022
-  */
+/**
+ * Main
+ * Desc: Sets up window function and runs program
+ * @author Cynthia L & Phoebe Y ICS4U
+ * @version 1.2 Jun 2022
+ */
 
- package main;
- import javax.swing.JFrame;
+package main;
 
- public class Main{
-     public static void main (String [] args){
-        // ----------------------------------------------------------|
-        // WINDOW SETUP ---------------------------------------------|
-        // ----------------------------------------------------------| 
-        JFrame window = new JFrame(); 
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //allows the window to close properly
-        window.setResizable (false);
-        window.setTitle ("BEEware Of the Garden");
-        
-        GamePanel game = new GamePanel(); // initialize a gamepanel
-        window.add(game);
+import javax.swing.JFrame;
 
-        window.pack();//allows window to be sizeded to fit prefered size
+public class Main {
+   public static void main(String[] args) {
+      // ----------------------------------------------------------|
+      // WINDOW SETUP ---------------------------------------------|
+      // ----------------------------------------------------------|
+      JFrame window = new JFrame();
+      window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allows the window to close properly
+      window.setResizable(false);
+      window.setTitle("BEEware Of the Garden");
+      
+      GamePanel game = new GamePanel(); // initialize a gamepanel
+      window.add(game);
+      window.pack();// allows window to be sizeded to fit prefered size
 
-        window.setLocationRelativeTo(null); //window will be displyed at the center of the screen 
-        window.setVisible(true);
-
-        game.aSetter.spawnTulip();
-        game.aSetter.spawnNightshade();
-        game.startGameThread(); // the game loop starts here
-        game.setupGame();
-
-     }
-    }
-
-
+      window.setLocationRelativeTo(null); // window will be displyed at the center of the screen
+      window.setVisible(true);
+      game.aSetter.spawnTulip();
+      game.aSetter.spawnNightshade();
+      game.startGameThread(); // the game loop starts here
+      game.setupGame();
+}
+}

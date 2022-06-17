@@ -29,7 +29,7 @@ public class Player extends Sprites {
     public final int screenY;
     
     // Objects
-    int numTulipCollected = 0;
+    public int numTulipCollected = 0;
 
     //player constructor
     public Player(GamePanel game, MyKeyListener key){
@@ -85,6 +85,8 @@ public class Player extends Sprites {
     }
 
     public void update(){ // gets called 60 times per second
+        playerHealth(); // check if the game is over
+        
         if (key.upPressed == true || key.downPressed == true || 
             key.leftPressed == true || key.rightPressed == true){
                 
@@ -158,6 +160,12 @@ public class Player extends Sprites {
         }
     }
 
+    public void playerHealth(){ // for now, if collect 5 tulip, game end
+        if (numTulipCollected == 1){
+            game.gameScreen = game.endScreen;
+        }
+    }
+
     public void draw(Graphics2D g2){
         BufferedImage image = null;
 
@@ -198,5 +206,8 @@ public class Player extends Sprites {
         }
         //drawing image on screen
         g2.drawImage(image, screenX, screenY, game.tileSize, game.tileSize, null);
+        
+        game.timeLapsed += (double)1/60;
+        System.out.println("TIME" + game.timeLapsed); // measure time lapsed
     }
 }

@@ -15,22 +15,32 @@ import java.awt.Color;
 public class UI {
     GamePanel game;
     Graphics2D g2;
+    Font arial40;
 
     public int commandNum = 0; // selection number on the menu
     public int rulesScreen = 0; // 0 means it's on the title screen; other on the rules screen
     
     public UI(GamePanel game){
         this.game = game;        
+
+        arial40 = new Font("Calibri", Font.PLAIN, 40);
     }
 
     public void draw(Graphics2D g2){
         this.g2 = g2;
 
-
         // Title Screen
         if (game.gameScreen == game.titleScreen){
             drawTitleScreen();
         }
+        // game screen
+        else if (game.gameScreen == game.playScreen){
+            drawGameScreen();
+        }
+        else if (game.gameScreen == game.endScreen){
+            drawEndScreen();
+        }
+
     }
 
     public void drawTitleScreen(){
@@ -51,7 +61,7 @@ public class UI {
     
             // player mascot image slay
             x = game.screenWidth/2 - game.tileSize;
-            y += game.tileSize;
+               y += game.tileSize;
             g2.drawImage(game.user.playerLeft1, x, y, game.tileSize*2, game.tileSize*2, null);
     
             // Menu
@@ -134,6 +144,45 @@ public class UI {
          y += game.tileSize*2;
          g2.drawString(text, x, y);
 
+    }
+
+    public void drawGameScreen(){
+        // Title Name text
+        g2.setFont(arial40);
+        g2.setColor(Color.white);
+        g2.drawString("Tulips: " + game.user.numTulipCollected, 25, game.tileSize);
+
+    }
+
+    public void drawEndScreen(){
+        // Background 
+        g2.setColor(new Color(193, 225, 193));
+        g2.fillRect(0, 0, game.screenWidth, game.screenHeight);
+
+        // game over text
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,52F));
+        String text = "GAME OVER";
+        
+        int x = getXforCenteredText(text);
+        int y = game.tileSize*3;
+
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+        
+        // End text
+        text = "You collected " + game.user.numTulipCollected + " tulip(s)";
+        x = getXforCenteredText(text);
+        y += game.tileSize*3;
+
+        g2.drawString(text, x, y);
+       
+        // QUIT
+        text = "QUIT";
+        x = getXforCenteredText(text);
+        y += game.tileSize*4;
+        g2.drawString(text, x, y);
+        g2.drawString(">", x-game.tileSize, y);
+        
     }
 
     public int getXforCenteredText(String text){
