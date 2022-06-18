@@ -46,7 +46,5 @@ public class Sound{
 
     public void stop() {
         clip.stop(); // stops audio
-        clip.flush(); // clear the buffer with audio data
-        //clip.setFramePosition(0); // prepare to start from the beginning
     }
 }

@@ -70,22 +70,18 @@ public class MyKeyListener implements KeyListener {
         if (game.gameScreen == game.playScreen) {
             if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
                 upPressed = true;
-                // game.playSoundEffect(4); // walk collection sound effect
             }
 
             if (code == KeyEvent.VK_DOWN) { // if 'down arrow' is pressed
                 downPressed = true;
-                game.playSoundEffect(4); // walk collection sound effect
             }
 
             if (code == KeyEvent.VK_LEFT) { // if 'left arrow' is pressed
                 leftPressed = true;
-                game.playSoundEffect(4); // walk collection sound effect
             }
 
             if (code == KeyEvent.VK_RIGHT) { // if 'right arrow' is pressed
                 rightPressed = true;
-                game.playSoundEffect(4); // walk collection sound effect
             }
             if (code == KeyEvent.VK_ESCAPE) { // if 'escape' key is pressed
                 System.exit(0); // quit

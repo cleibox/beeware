@@ -118,7 +118,7 @@ public class UI {
             // ----------------------------------------------------------|
             // RULES BACKGROUND -----------------------------------------|
             // ----------------------------------------------------------| 
-            g2.setColor(new Color(0, 0, 0)); // Background Color
+            g2.setColor(new Color(50, 150, 150)); // Background Color
             g2.fillRect(0, 0, game.screenWidth, game.screenHeight); // Fill Background
     
             // ----------------------------------------------------------|
@@ -140,24 +140,53 @@ public class UI {
             y += game.tileSize*1; 
             for (String line: textMainBody.split("\n")){ //split text to next line when \n is typed
                 g2.drawString(line, x, y);
-                // System.out.println (x +" " + y);
                 y += 40;
             }
-            //String textBeeDetails
+
+            //bee details
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,18F)); // Change Text Font
+            x = 150;
+            y += game.tileSize*1.15;
+            text = "Contact with a bee will cause continual -1 to player health.";
+            g2.drawString(text, x, y);
+
+            //tulip details
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,18F)); // Change Text Font
+            x = 150;
+            y += game.tileSize*1.6;
+            text = "Collecting a tulip will +1 to player health & +1 to flower count.";
+            g2.drawString(text, x, y);
+
+            //night shade details
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,18F)); // Change Text Font
+            x = 150;
+            y += game.tileSize*1.6;
+            text = "Collecting a nightshade will -2 to player health & +0 to flower count.";
+            g2.drawString(text, x, y);
+
 
             // ----------------------------------------------------------|
             // RULES IMAGES ---------------------------------------------|
             // ----------------------------------------------------------|
-            x = game.screenWidth/2 - game.tileSize; // Image xCoordinates
-            y += game.tileSize; // Image yCoordinates
-            g2.drawImage(game.user.left, x, y, game.tileSize*2, game.tileSize*2, null); // Display Image
+            //bee
+            x = 85; 
+            y= 250; 
+            g2.drawImage(game.user.beeLeft, x, y, game.tileSize, game.tileSize, null); // Display bee
+
+            //tulip
+            y = 325; 
+            g2.drawImage(game.user.tulip, x, y, game.tileSize, game.tileSize, null); // Display tulip
+
+            //night shade
+            y = 400; 
+            g2.drawImage(game.user.nightShade, x, y, game.tileSize, game.tileSize, null); // Display night shade
 
             // ----------------------------------------------------------|
             // RULES SELECTION TEXT -------------------------------------|
             // ----------------------------------------------------------|
             text = "BACK";
             x = getXforCenteredText(text);
-            y += game.tileSize*6;
+            y += game.tileSize*2.15;
             g2.drawString(text, x, y);
             g2.drawString(">", x-game.tileSize, y); // Arrow
         }
