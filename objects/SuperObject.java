@@ -15,7 +15,7 @@ import java.awt.Rectangle;
 public class SuperObject {
     public BufferedImage image;
     public String name;
-    public boolean collision = false;
+    public boolean collided = false;
     public int mapX, mapY;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48); // collision area
     public int solidAreaDefaultX = 0;

@@ -11,9 +11,6 @@ import main.GamePanel;
 import sprites.Sprites;
 import java.io.File;
 import javax.imageio.ImageIO;
-
-// import javafx.scene.shape.Rectangle;
-// import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import java.io.IOException;
@@ -26,13 +23,13 @@ public class Bee extends Sprites {
         direction = "down";
         speed = 5;
 
-        solid = new Rectangle();
-        solid.x = 1;
-        solid.y = 1;
-        solid.width = 12;
-        solid.height = 9;
-        solidAreaDefaultX = solid.x;
-        solidAreaDefaultY = solid.y;
+        solidArea = new Rectangle();
+        solidArea.x = 3;
+        solidArea.y = 4;
+        solidArea.width = 14;
+        solidArea.height = 9;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
 
         getImage();
     }
@@ -60,7 +57,7 @@ public class Bee extends Sprites {
             int goalRow = 1;
 
             searchPath(goalCol, goalRow);
-            
+
         } else {
             actionLockCounter++;
     

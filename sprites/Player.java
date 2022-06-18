@@ -50,11 +50,11 @@ public class Player extends Sprites {
         int playerY = 18;
         int playerH = 32;
         int playerW = 24;
-        solid = new Rectangle(playerX, playerY, playerH, playerW);
-        solid.x = 8;
-        solid.y = 16;
-        solidAreaDefaultX = solid.x;
-        solidAreaDefaultY = solid.y; 
+        solidArea = new Rectangle(playerX, playerY, playerH, playerW);
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y; 
 
         setDefault();
         getPlayerImage();
@@ -111,15 +111,10 @@ public class Player extends Sprites {
             game.detector.tileDetection(this);
 
             // check object collisions
-            int objIndex = game.detector.checkObject(this, true); // this is player so it's true
+            int objIndex = game.detector.checkSpriteObjectCollision(this, game.obj); // this is player so it's true
             pickUpObject(objIndex);
 
-            // check mob collision
-            int beeIndex = game.detector.checkSprite(this, game.bee);
-            interactBee(beeIndex);
-
-
-            //ALLOWS movement only if collision is NOT detected
+            // ALLOWS movement only if collision is NOT detected
             if (collided == false ){
                 if (direction.equals ("up")){
                     mapY-= speed;
@@ -157,27 +152,18 @@ public class Player extends Sprites {
                 numTulipCollected++;
                 System.out.println("Total tulips: " + numTulipCollected);
                 game.obj[i] = null; // delete the object we touched
-                game.aSetter.spawnTulip();
-                game.user.playerHealth+= 5;
-                game.aSetter.spawnBee(); // spawn bees per collected tulip
-                game.aSetter.spawnBee(); // spawn bees per collected tulip
+                game.aSpawner.spawnTulip();
+                game.user.playerHealth++;
+                game.aSpawner.spawnBee(); // spawn bees per collected tulip
+                game.aSpawner.spawnBee(); // spawn bees per collected tulip
             }
             else if (objectName.equals("Nightshade")){
                 game.obj[i] = null; // delete the object we touched
-                game.aSetter.spawnNightshade();
+                game.aSpawner.spawnNightshade();
                 game.user.playerHealth -= 2;
-                game.aSetter.spawnBee(); // spawn bees per collected night shade
-                game.aSetter.spawnBee(); // spawn bees per collected night shade
-            
+                game.aSpawner.spawnBee(); // spawn bees per collected night shade
+                game.aSpawner.spawnBee(); // spawn bees per collected tulip
             }
-        }
-    }
-
-    public void interactBee(int i){
-        if (i != 999){
-            // System.out.println("HIT BEE");
-            game.user.playerHealth -= 1;
-
         }
     }
 
@@ -187,6 +173,9 @@ public class Player extends Sprites {
         }
         if (this.playerHealth < 5 && speed > 5){
             speed -= 5; // under an amount of health, the player becomes slower
+        }
+        else if (this.playerHealth > 5 && speed < 5){
+            speed += 5;
         }
     }
 

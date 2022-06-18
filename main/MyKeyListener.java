@@ -7,6 +7,7 @@
 
 package main;
 
+// IMPORTS (key inputs)
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -19,17 +20,17 @@ public class MyKeyListener implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        // not used
-    }
+    public void keyTyped(KeyEvent e) {} // not used 
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int code = e.getKeyCode(); // returns integer associated with each key
+        int code = e.getKeyCode(); // returns the integer associated with each key
 
-        // Title Screen
+        // ----------------------------------------------------------|
+        // TITLE SCREEN INPUT ---------------------------------------|
+        // ----------------------------------------------------------|
         if (game.gameScreen == game.titleScreen) {
-            if (game.ui.rulesScreen == 0) {
+            if (game.ui.rulesScreen == 0) { // on the title screen; lack of rules screen
                 if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
                     game.ui.commandNum--;
                     if (game.ui.commandNum < 0) { // let the choosing arrow loop through the choices
@@ -56,14 +57,16 @@ public class MyKeyListener implements KeyListener {
                         System.exit(0);
                     }
                 }
-            } else if (game.ui.rulesScreen == 1) { // returning after the rule screen
+            } else if (game.ui.rulesScreen == 1) { // on the rules screen
                 if (code == KeyEvent.VK_ENTER) {
                     game.ui.rulesScreen = 0;
                 }
             }
         }
 
-        // Game screen
+        // ----------------------------------------------------------|
+        // GAME SCREEN INPUT ----------------------------------------|
+        // ----------------------------------------------------------|
         if (game.gameScreen == game.playScreen) {
             if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
                 upPressed = true;
@@ -85,10 +88,12 @@ public class MyKeyListener implements KeyListener {
             }
         }
 
-        // End screen
+        // ----------------------------------------------------------|
+        // END SCREEN INPUT -----------------------------------------|
+        // ----------------------------------------------------------|
         if (game.gameScreen == game.endScreen) {
             if (code == KeyEvent.VK_ENTER) { // if 'enter' key is pressed
-                System.exit(0); // quit
+                System.exit(0); // quit 
             }
         }
     }

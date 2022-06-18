@@ -7,6 +7,7 @@
 
 package main;
 
+// IMPORTS (java swing)
 import javax.swing.JFrame;
 
 public class Main {
@@ -25,9 +26,17 @@ public class Main {
 
       window.setLocationRelativeTo(null); // window will be displyed at the center of the screen
       window.setVisible(true);
-      game.aSetter.spawnTulip();
-      game.aSetter.spawnNightshade();
-      game.aSetter.spawnBee();
+
+      // ----------------------------------------------------------|
+      // ASSET SPAWNER SETUP --------------------------------------|
+      // ----------------------------------------------------------|
+      game.aSpawner.spawnTulip();
+      game.aSpawner.spawnNightshade();
+      game.aSpawner.spawnBee();
+
+      // ----------------------------------------------------------|
+      // GAME SETUP -----------------------------------------------|
+      // ----------------------------------------------------------|
       game.startGameThread(); // the game loop starts here
       game.setupGame();
 

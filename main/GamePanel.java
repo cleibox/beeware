@@ -7,12 +7,15 @@
 
 package main;
 
+// IMPORTS (graphics)
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 
+// IMPORTS (misc)
+import ai.PathFinder;
 import objects.SuperObject;
 import sprites.Player;
 import sprites.Sprites;
@@ -28,39 +31,33 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     public final int tileSize = originalTileSize * scale; // 48 x 48 tile
 
     // Screen resolution (16px by 12 px)
-    // Screen Horizontal
-    public final int maxScreenCol = 16;  
+    public final int maxScreenCol = 16; // Screen Horizontal
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
 
-    // Screen Vertical
-    public final int maxScreenRow = 12; 
+    public final int maxScreenRow = 12; // Screen Vertical
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     // setting FPS (Frames per Second)
     int FPS = 60;
+    
+    Thread gameThread; // once started, keeps game running
 
     // ----------------------------------------------------------|
-    // MAP SETTINGS -------------------------------------------|
+    // MAP SETTINGS ---------------------------------------------|
     // ----------------------------------------------------------|
-    //50 x 50 map
-    public final int maxMapCol = 50;
-    public final int maxMapRow = 50;
+    // 50 x 50 map
+    public final int maxMapCol = 50; // column
+    public final int maxMapRow = 50; // row
     public final int mapWidth = tileSize * maxMapCol;
     public final int mapHeight = tileSize * maxMapRow;
     public final int maxMap = 10;
     public int currentMap = 0;
 
+    // ----------------------------------------------------------|
+    // KEY INPUT ------------------------------------------------|
+    // ----------------------------------------------------------|
     MyKeyListener key = new MyKeyListener(this); // tracks the inputted keys 
-
-    Thread gameThread;// once started, keeps game running
-    public double timeLapsed;
-
-    public CollisionDetection detector = new CollisionDetection(this);
-
-    public TileManager tile = new TileManager (this);
-
-    public UI ui = new UI(this);
-
+    
     // ----------------------------------------------------------|
     // DIFFERENT SCREENS ----------------------------------------|
     // ----------------------------------------------------------|
@@ -70,27 +67,35 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     public final int endScreen = 2;
 
     // ----------------------------------------------------------|
-    // PLAYER SETTINGS ------------------------------------------|
+    // SYSTEM INSTANTIATIONS ------------------------------------|
+    // ----------------------------------------------------------|
+    public UI ui = new UI(this); // user interface; controls the different game screens
+    public TileManager tileManager = new TileManager (this); // controls the tiles and their properties
+    public CollisionDetection detector = new CollisionDetection(this); // activates collision checker (between tiles, sprites, player)
+    public PathFinder pFinder = new PathFinder(this); // shorted path for bees to get to the player
+
+    // ----------------------------------------------------------|
+    // PLAYER INSTANTIATIONS ------------------------------------|
     // ----------------------------------------------------------|
     public Player user = new Player (this, key); 
 
     // ----------------------------------------------------------|
-    // MOB SETTINGS ---------------------------------------------|
+    // BEE INSTANTIATIONS ---------------------------------------|
     // ----------------------------------------------------------|
-    public Sprites bee[] = new Sprites[200];
+    public Sprites bee[] = new Sprites[200]; // 200 bees can be created and appear on the screen at the same time
     public int numSpawnedBees = 0;
 
     // ----------------------------------------------------------|
-    // OBJECT SETTINGS ------------------------------------------|
+    // OBJECT INSTANTIATIONS ------------------------------------|
     // ----------------------------------------------------------|
-    public SuperObject obj[] = new SuperObject[10]; // 10 objects can be created at a time
-    public AssetSetter aSetter = new AssetSetter(this); // initiate
+    public SuperObject obj[] = new SuperObject[10]; // 10 objects can be created and appear on screen at the same time
+    public AssetSpawner aSpawner = new AssetSpawner(this); // controls the spawning of the objects (flowers)
 
     public GamePanel () {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // set size of the JPanel
         this.setBackground(Color.black);
        
-        this.setDoubleBuffered(true);// improve rendering
+        this.setDoubleBuffered(true); // improve rendering
         
         this.addKeyListener(key); // recognize key input
         this.setFocusable (true); // GamePanel can focus on receiving key input
@@ -123,15 +128,14 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
                 delta--;
             }
         }
-
     }
     
-    // Update information such as character positions
+    // Update information (ex: character positions)
     public void update (){
-        if (gameScreen == playScreen){
-            user.update(); //using update method from player class
+        if (gameScreen == playScreen){ // user is in game
+            user.update(); // update player
            
-            // bee
+            // update bee
             for (int i = 0; i < bee.length; i++){
                 if (bee[i] != null){
                    bee[i].update(); 
@@ -140,6 +144,7 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
         }
     }
 
+    // Drawing the game panel screen 
     public void paintComponent (Graphics g){
         super.paintComponent(g); 
         Graphics2D g2 = (Graphics2D)g; // more refined graphics
@@ -149,32 +154,40 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
             ui.draw(g2);
         }
         else { // game screen is the game (play)
-            //draw in the tiles
-            tile.draw(g2);//calling draw method in TileManager class
+            // ----------------------------------------------------------|
+            // DRAW TILES -----------------------------------------------|
+            // ----------------------------------------------------------|  
+            tileManager.draw(g2); // calling draw method in TileManager class 
            
-            // draw in any text
+            // ----------------------------------------------------------|
+            // DRAW SCREEN ----------------------------------------------|
+            // ----------------------------------------------------------|
             ui.draw(g2);
            
-            // draw in the object
+            // ----------------------------------------------------------|
+            // DRAW OBJECTS ---------------------------------------------|
+            // ----------------------------------------------------------| 
             for (int i = 0; i < obj.length; i++){
                 if (obj[i] != null){
                     obj[i].draw(g2, this); // drawing the object from the object slot
                 }
             }
 
-            // draw in the bee
+            // ----------------------------------------------------------|
+            // DRAW BEES ------------------------------------------------|
+            // ----------------------------------------------------------| 
             for (int i = 0; i < bee.length; i++){
                 if (bee[i] != null){
                     bee[i].draw(g2); // drawing the object from the object slot
                 }
             }
 
-            // draw in the player
+            // ----------------------------------------------------------|
+            // DRAW PLAYER ----------------------------------------------|
+            // ----------------------------------------------------------| 
             user.draw(g2); // using draw method from player class
-            g2.dispose();
-
+            
+            g2.dispose(); // refresh
         }
-
     }
-
 }
