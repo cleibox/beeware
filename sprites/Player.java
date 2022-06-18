@@ -140,8 +140,6 @@ public class Player extends Sprites {
                 System.out.println("Total tulips: " + numTulipCollected);
                 game.obj[i] = null; // delete the object we touched
                 game.aSpawner.spawnTulip();
-                // game.aSpawner.spawnTulip();
-                // game.aSpawner.spawnTulip(); //SLAYTHIA THIS DON'T WORK MAN :,(
                 game.user.playerHealth++;
                 game.aSpawner.spawnBee(); // spawn bees per collected tulip
                 game.aSpawner.spawnBee(); // spawn bees per collected tulip
