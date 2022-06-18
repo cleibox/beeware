@@ -107,6 +107,7 @@ public class CollisionDetection {
         if (sprites.solidArea.intersects(game.user.solidArea)) {
             System.out.println("COLLIDE");
             game.user.playerHealth -= 1;
+            game.playSoundEffect(1); // spound effect on bee contact 
             // sprites.collided = true;
         }
 

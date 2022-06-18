@@ -64,7 +64,7 @@ public class Player extends Sprites {
     public void setDefault(){
         mapX= game.tileSize * 25;
         mapY = game.tileSize * 25;
-        speed = 10;
+        speed = 9;
         direction = "down";
     }
 
@@ -117,7 +117,7 @@ public class Player extends Sprites {
             // ALLOWS movement only if collision is NOT detected
             if (collided == false ){
                 if (direction.equals ("up")){
-                    mapY-= speed;
+                    mapY-= speed; 
                 } else if (direction.equals("down")){
                     mapY+= speed;
                 } else if (direction.equals("left")){
@@ -149,21 +149,33 @@ public class Player extends Sprites {
         if (i != 999) { // if not 999, then we have touched an object
             String objectName = game.obj[i].name;
             if (objectName.equals("Tulip")){
+                game.playSoundEffect(3); // tulip collection sound effect
                 numTulipCollected++;
                 System.out.println("Total tulips: " + numTulipCollected);
                 game.obj[i] = null; // delete the object we touched
                 game.aSpawner.spawnTulip();
+                game.aSpawner.spawnTulip();
+                game.aSpawner.spawnTulip(); //SLAYTHIA THIS DON'T WORK MAN :,(
                 game.user.playerHealth++;
+                game.aSpawner.spawnBee(); // spawn bees per collected tulip
                 game.aSpawner.spawnBee(); // spawn bees per collected tulip
                 game.aSpawner.spawnBee(); // spawn bees per collected tulip
             }
             else if (objectName.equals("Nightshade")){
                 game.obj[i] = null; // delete the object we touched
+                game.playSoundEffect(2); // night shade collection sound effect
                 game.aSpawner.spawnNightshade();
                 game.user.playerHealth -= 2;
                 game.aSpawner.spawnBee(); // spawn bees per collected night shade
-                game.aSpawner.spawnBee(); // spawn bees per collected tulip
+                game.aSpawner.spawnBee(); // spawn bees per collected night shade
             }
+        }
+    }
+
+    public void step(){
+        if (key.upPressed == true || key.downPressed == true || 
+        key.leftPressed == true || key.rightPressed == true){
+            game.playSoundEffect(4); // walking sound effect
         }
     }
 

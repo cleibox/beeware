@@ -48,8 +48,6 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     // 50 x 50 map
     public final int maxMapCol = 50; // column
     public final int maxMapRow = 50; // row
-    public final int mapWidth = tileSize * maxMapCol;
-    public final int mapHeight = tileSize * maxMapRow;
     public final int maxMap = 10;
     public int currentMap = 0;
 
@@ -73,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     public TileManager tileManager = new TileManager (this); // controls the tiles and their properties
     public CollisionDetection detector = new CollisionDetection(this); // activates collision checker (between tiles, sprites, player)
     public PathFinder pFinder = new PathFinder(this); // shorted path for bees to get to the player
+    Sound sound = new Sound();// activates audio
 
     // ----------------------------------------------------------|
     // PLAYER INSTANTIATIONS ------------------------------------|
@@ -103,6 +102,8 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
 
     public void setupGame(){
         gameScreen = titleScreen; // begins with the title screen
+
+        playAudio(0); // background music 
     }
 
     public void startGameThread(){
@@ -189,5 +190,24 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
             
             g2.dispose(); // refresh
         }
+    }
+
+    // ----------------------------------------------------------|
+    // AUDIO SETTINGS -------------------------------------------|
+    // ----------------------------------------------------------| 
+    public void playAudio(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+    public void stopAudio(){
+        sound.stop();
+    }
+
+    public void playSoundEffect(int i){
+        sound.setFile(i);
+        sound.play();
+        // not looped 
     }
 }
