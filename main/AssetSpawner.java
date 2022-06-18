@@ -41,6 +41,8 @@ public class AssetSpawner {
         game.obj[0].mapX = spawnSet[0] * game.tileSize;
         game.obj[0].mapY = spawnSet[1] * game.tileSize;
 
+        // game.numSpawnedTulips++;
+
         System.out.println("TULIPmapX " + (game.obj[0].mapX)/game.tileSize + " mapY " + (game.obj[0].mapY)/game.tileSize);
     }
     

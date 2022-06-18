@@ -48,6 +48,8 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     // 50 x 50 map
     public final int maxMapCol = 50; // column
     public final int maxMapRow = 50; // row
+    public final int mapWidth = tileSize * maxMapCol;
+    public final int mapHeight = tileSize * maxMapRow;
     public final int maxMap = 10;
     public int currentMap = 0;
 
@@ -89,6 +91,7 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     // ----------------------------------------------------------|
     public SuperObject obj[] = new SuperObject[10]; // 10 objects can be created and appear on screen at the same time
     public AssetSpawner aSpawner = new AssetSpawner(this); // controls the spawning of the objects (flowers)
+    // public int numSpawnedTulips = 0;
 
     public GamePanel () {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // set size of the JPanel

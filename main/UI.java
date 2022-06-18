@@ -140,7 +140,7 @@ public class UI {
             y += game.tileSize*1; 
             for (String line: textMainBody.split("\n")){ //split text to next line when \n is typed
                 g2.drawString(line, x, y);
-                System.out.println (x +" " + y);
+                // System.out.println (x +" " + y);
                 y += 40;
             }
             //String textBeeDetails

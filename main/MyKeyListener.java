@@ -70,7 +70,7 @@ public class MyKeyListener implements KeyListener {
         if (game.gameScreen == game.playScreen) {
             if (code == KeyEvent.VK_UP) { // if 'up arrow' is pressed
                 upPressed = true;
-                game.playSoundEffect(4); // walk collection sound effect
+                // game.playSoundEffect(4); // walk collection sound effect
             }
 
             if (code == KeyEvent.VK_DOWN) { // if 'down arrow' is pressed
