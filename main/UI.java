@@ -7,6 +7,10 @@
 
 package main;
 
+import mob.Bee;
+import objects.NightshadeObject;
+import objects.TulipObject;
+
 // IMPORTS (graphics)
 import java.awt.Graphics2D;
 import java.awt.Font;
@@ -169,17 +173,21 @@ public class UI {
             // RULES IMAGES ---------------------------------------------|
             // ----------------------------------------------------------|
             //bee
+            Bee bee1 = new Bee(game);
+            bee1.getImage();
             x = 85; 
             y= 250; 
-            g2.drawImage(game.user.beeLeft, x, y, game.tileSize, game.tileSize, null); // Display bee
-
+            g2.drawImage(bee1.left, x, y, game.tileSize, game.tileSize, null); // Display bee
+    
             //tulip
+            TulipObject tulip1 = new TulipObject(game);
             y = 325; 
-            g2.drawImage(game.user.tulip, x, y, game.tileSize, game.tileSize, null); // Display tulip
+            g2.drawImage(tulip1.image, x, y, game.tileSize, game.tileSize, null); // Display tulip
 
             //night shade
+            NightshadeObject nightshade1 = new NightshadeObject(game);
             y = 400; 
-            g2.drawImage(game.user.nightShade, x, y, game.tileSize, game.tileSize, null); // Display night shade
+            g2.drawImage(nightshade1.image, x, y, game.tileSize, game.tileSize, null); // Display night shade
 
             // ----------------------------------------------------------|
             // RULES SELECTION TEXT -------------------------------------|
