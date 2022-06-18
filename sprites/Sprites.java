@@ -32,7 +32,7 @@ public class Sprites {
   public int spriteNum = 1;
 
   // collision detection
-  public Rectangle solid;
+  public Rectangle solidArea;
   public boolean collided = false;
   public int actionLockCounter = 0;
 
@@ -44,24 +44,27 @@ public class Sprites {
 
   public void setAction() {
   } // how the sprite behaves (moving)
-  
-  public void checkCollision(){
+
+  public void checkCollision() {
     collided = false;
 
     game.detector.tileDetection(this);
-    game.detector.checkObject(this, false);
-    game.detector.checkSprite(this, game.bee);
-    // boolean contactPlayer = game.detector.checkPlayer(this);;
-    
-    
+
+    game.detector.checkPlayerBeeCollision(this);
+    game.detector.checkSpriteObjectCollision(this, game.obj);
+    // game.detector.checkSpriteObjectCollision(this, game.bee);
+    // if (type == )
+
   }
 
   public void update() {
     setAction();
 
-    collided = false;
-    game.detector.tileDetection(this);
-    game.detector.checkPlayer(this);
+    checkCollision();
+
+    // collided = false;
+    // game.detector.tileDetection(this);
+    // game.detector.checkPlayer(this);
 
     // ALLOWS movement only if collision is NOT detected
     if (collided == false) {
@@ -140,8 +143,73 @@ public class Sprites {
     }
   }
 
-  public void searchPath(int goalCol, int goalRow){
+  public void searchPath(int goalCol, int goalRow) {
+    int startCol = (mapX + solidArea.x) / game.tileSize;
+    int startRow = (mapY + solidArea.y) / game.tileSize;
+    game.pFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
 
+    if (game.pFinder.search() == true) {
+      // next mapx & mapy
+      int nextX = game.pFinder.pathList.get(0).col * game.tileSize;
+      int nextY = game.pFinder.pathList.get(0).row * game.tileSize;
+
+      // sprite's solid position
+      int spriteLeftX = mapX + solidArea.x;
+      int spriteRightX = mapX + solidArea.x + solidArea.width;
+      int spriteTopY = mapY + solidArea.y;
+      int spriteBottomY = mapY + solidArea.y + solidArea.height;
+
+      if (spriteTopY > nextY && spriteLeftX >= nextX && spriteRightX < nextX + game.tileSize) {
+        direction = "up";
+      } else if (spriteTopY < nextY && spriteLeftX >= nextX && spriteRightX < nextX + game.tileSize) {
+        direction = "down";
+      } else if (spriteTopY >= nextY && spriteBottomY < nextY + game.tileSize) {
+        // left or right
+        if (spriteLeftX > nextX) {
+          direction = "left";
+        }
+        if (spriteLeftX < nextX) {
+          direction = "right";
+        }
+
+      } else if (spriteTopY > nextY && spriteLeftX > nextX) {
+        // up or left
+        direction = "up";
+        checkCollision();
+        if (collided == true) {
+          direction = "left";
+        }
+      } else if (spriteTopY > nextY && spriteLeftX < nextX) {
+        // up or right
+        direction = "up";
+        checkCollision();
+        if (collided == true) {
+          direction = "right";
+        }
+      } else if (spriteTopY < nextY && spriteLeftX > nextX) {
+        // down or left
+        direction = "down";
+        checkCollision();
+        if (collided == true) {
+          direction = "left";
+        }
+      } else if (spriteTopY < nextY && spriteLeftX < nextX) {
+        // down or right
+        direction = "down";
+        checkCollision();
+        if (collided == true) {
+          direction = "right";
+        }
+      }
+
+      // if the target goal is reached, stop the path search
+      int nextCol = game.pFinder.pathList.get(0).col;
+      int nextRow = game.pFinder.pathList.get(0).row;
+      if (nextCol == goalCol && nextRow == goalRow) {
+        onPath = false;
+
+      }
+    }
   }
 
 }

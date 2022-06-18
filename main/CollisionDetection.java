@@ -7,225 +7,168 @@
 
 package main;
 
+import objects.SuperObject;
+// IMPORTS (classes)
 import sprites.Sprites;
 
 public class CollisionDetection {
-
     GamePanel game;
 
-    //constructor 
-    public CollisionDetection (GamePanel game){
+    public CollisionDetection(GamePanel game) {
         this.game = game;
     }
 
-    //collision detection method
-    public void tileDetection (Sprites sprites){
-        int spritesLeft = sprites.mapX + sprites.solid.x;
-        int spritesRight = sprites.mapX + sprites.solid.x + sprites.solid.width;
-        int spritesTop = sprites.mapY + sprites.solid.y;
-        int spritesBottom = sprites.mapY + sprites.solid.y + sprites.solid.height;
+    // ----------------------------------------------------------|
+    // TILE COLLISION SETTINGS ----------------------------------|
+    // ----------------------------------------------------------|
+    public void tileDetection(Sprites sprites) {
+        // ----------------------------------------------------------|
+        // SPRITE COLLISION AREA ------------------------------------|
+        // ----------------------------------------------------------|
+        // All sprites should not collide into uncollidable tiles
+        // Sprite collision area is not the sprite image area because that is too much collision area
+        int spritesLeft = sprites.mapX + sprites.solidArea.x; // top left of collision area
+        int spritesRight = sprites.mapX + sprites.solidArea.x + sprites.solidArea.width; // top right of collision area
+        int spritesTop = sprites.mapY + sprites.solidArea.y; // top horizontal line of collision area
+        int spritesBottom = sprites.mapY + sprites.solidArea.y + sprites.solidArea.height; // bottom horizontal line of collision area 
 
-        //column and row number on map
-        int spritesLeftCol = spritesLeft/game.tileSize;
-        int spritesRightCol = spritesRight/game.tileSize;
-        int spritesTopRow = spritesTop/game.tileSize;
-        int spritesBottomRow = spritesBottom/game.tileSize;
+        // This finds the tiles (column & row) the player's collision area is on 
+        int spritesLeftCol = spritesLeft / game.tileSize;
+        int spritesRightCol = spritesRight / game.tileSize;
+        int spritesTopRow = spritesTop / game.tileSize;
+        int spritesBottomRow = spritesBottom / game.tileSize;
 
-        //only 2 tiles need to be checked in each direction for collisions
+        // only 2 tiles need to be checked in each direction for collisions
         int tile1;
         int tile2;
 
-        if (sprites.direction.equals ("up")){
-            //predicting player location after moving UP
-            spritesTopRow = (spritesTop - sprites.speed)/game.tileSize;
+        // ----------------------------------------------------------|
+        // PLAYER DIRECTION COLLISION -------------------------------|
+        // ----------------------------------------------------------|
+        if (sprites.direction.equals("up")) {
+            // predicting player location after moving UP
+            spritesTopRow = (spritesTop - sprites.speed) / game.tileSize;
 
-            //predicting tile number after movement
-            tile1 = game.tile.mapTileNum[spritesLeftCol][spritesTopRow];//top left of solid area on player
-            tile2 = game.tile.mapTileNum[spritesRightCol][spritesTopRow];//top right of solid area on player
+            // predicting tile number after movement
+            tile1 = game.tileManager.mapTileNum[spritesLeftCol][spritesTopRow];// top left of solid area on player
+            tile2 = game.tileManager.mapTileNum[spritesRightCol][spritesTopRow];// top right of solid area on player
 
-            if((game.tile.tile[tile1].collision == true) || (game.tile.tile[tile2].collision == true) ){
+            if ((game.tileManager.tile[tile1].collision == true) || (game.tileManager.tile[tile2].collision == true)) {
                 sprites.collided = true;
             }
-        }else if(sprites.direction.equals ("down") ){
-            //predicting player location after moving DOWN
-            spritesBottomRow = (spritesBottom + sprites.speed)/game.tileSize;
+        } else if (sprites.direction.equals("down")) {
+            // predicting player location after moving DOWN
+            spritesBottomRow = (spritesBottom + sprites.speed) / game.tileSize;
 
-            //predicting tile number after movement
-            tile1 = game.tile.mapTileNum[spritesLeftCol][spritesBottomRow];//bottom left of solid area on player
-            tile2 = game.tile.mapTileNum[spritesRightCol][spritesBottomRow];//bottom right of solid area on player
+            // predicting tile number after movement
+            tile1 = game.tileManager.mapTileNum[spritesLeftCol][spritesBottomRow];// bottom left of solid area on player
+            tile2 = game.tileManager.mapTileNum[spritesRightCol][spritesBottomRow];// bottom right of solid area on player
 
-            if((game.tile.tile[tile1].collision == true) || (game.tile.tile[tile2].collision == true) ){
+            if ((game.tileManager.tile[tile1].collision == true) || (game.tileManager.tile[tile2].collision == true)) {
                 sprites.collided = true;
             }
-        } else if(sprites.direction.equals ("left") ){
-            //predicting player location after moving LEFT
-            spritesLeftCol = (spritesLeft - sprites.speed)/game.tileSize;
+        } else if (sprites.direction.equals("left")) {
+            // predicting player location after moving LEFT
+            spritesLeftCol = (spritesLeft - sprites.speed) / game.tileSize;
 
-            //predicting tile number after movement
-            tile1 = game.tile.mapTileNum[spritesLeftCol][spritesTopRow];//top left of solid area on player
-            tile2 = game.tile.mapTileNum[spritesLeftCol][spritesBottomRow];//bottom left of solid area  on player
+            // predicting tile number after movement
+            tile1 = game.tileManager.mapTileNum[spritesLeftCol][spritesTopRow];// top left of solid area on player
+            tile2 = game.tileManager.mapTileNum[spritesLeftCol][spritesBottomRow];// bottom left of solid area on player
 
-            if((game.tile.tile[tile1].collision == true) || (game.tile.tile[tile2].collision == true) ){
+            if ((game.tileManager.tile[tile1].collision == true) || (game.tileManager.tile[tile2].collision == true)) {
                 sprites.collided = true;
             }
-        }else if(sprites.direction.equals ("right") ){
-            //predicting player location after moving RIGHT
-            spritesRightCol = (spritesRight + sprites.speed)/game.tileSize;
+        } else if (sprites.direction.equals("right")) {
+            // predicting player location after moving RIGHT
+            spritesRightCol = (spritesRight + sprites.speed) / game.tileSize;
 
-            //predicting tile number after movement
-            tile1 = game.tile.mapTileNum[spritesRightCol][spritesTopRow];//top right of solid area on player
-            tile2 = game.tile.mapTileNum[spritesRightCol][spritesBottomRow];//bottom right of solid area on player
+            // predicting tile number after movement
+            tile1 = game.tileManager.mapTileNum[spritesRightCol][spritesTopRow];// top right of solid area on player
+            tile2 = game.tileManager.mapTileNum[spritesRightCol][spritesBottomRow];// bottom right of solid area on player
 
-            if((game.tile.tile[tile1].collision == true) || (game.tile.tile[tile2].collision == true) ){
+            if ((game.tileManager.tile[tile1].collision == true) || (game.tileManager.tile[tile2].collision == true)) {
                 sprites.collided = true;
             }
         }
     }
-    
-    // checks if the player is hitting any objects
-    public int checkObject(Sprites sprites, boolean isPlayer){
-        int index = 999;
 
-        for (int i = 0; i < game.obj.length; i++){
-            if (game.obj[i] != null){
-                // get the sprite's solid area posotion
-                sprites.solid.x = sprites.mapX + sprites.solid.x;
-                sprites.solid.y = sprites.mapY + sprites.solid.y;
-                
-                // get the object's solid area position
-                game.obj[i].solidArea.x = game.obj[i].mapX + game.obj[i].solidArea.x;
-                game.obj[i].solidArea.y = game.obj[i].mapY + game.obj[i].solidArea.y;
-                
-                if (sprites.direction.equals("up")){
-                    sprites.solid.y -= sprites.speed;
-                    if (sprites.solid.intersects(game.obj[i].solidArea)){
-                        if (game.obj[i].collision == true){
-                            sprites.collided = true;
-                        }
-                        if (isPlayer == true) {
-                            index = i;
-                        }
-                    }
-                }
-                else if (sprites.direction.equals("down")){
-                    sprites.solid.y += sprites.speed;
-                    if (sprites.solid.intersects(game.obj[i].solidArea)){
-                        if (game.obj[i].collision == true){
-                            sprites.collided = true;
-                        }
-                        if (isPlayer == true) {
-                            index = i;
-                        }
-                    }
-                }
-                else if (sprites.direction.equals("left")){
-                    sprites.solid.x -= sprites.speed;
-                    if (sprites.solid.intersects(game.obj[i].solidArea)){
-                        if (game.obj[i].collision == true){
-                            sprites.collided = true;
-                        }
-                        if (isPlayer == true) {
-                            index = i;
-                        }
-                    }
-                }
-                else if (sprites.direction.equals("right")){
-                    sprites.solid.x += sprites.speed;
-                    if (sprites.solid.intersects(game.obj[i].solidArea)){
-                        if (game.obj[i].collision == true){
-                            sprites.collided = true;
-                        }
-                        if (isPlayer == true) {
-                            index = i;
-                        }
-                    }
-                }
-                sprites.solid.x = sprites.solidAreaDefaultX;
-                sprites.solid.y = sprites.solidAreaDefaultY;
-                game.obj[i].solidArea.x = game.obj[i].solidAreaDefaultX;
-                game.obj[i].solidArea.y = game.obj[i].solidAreaDefaultY;
-
-            }
-        }
-        
-        return index;
-    }
-
-     // check if the bee is hitting any objects
-     public int checkSprite(Sprites sprites, Sprites[] target){
-        int index = 999;
-
-        for (int i = 0; i < target.length; i++){
-            if (target[i] != null){
-                // get the sprite's solid area posotion
-                sprites.solid.x = sprites.mapX + sprites.solid.x;
-                sprites.solid.y = sprites.mapY + sprites.solid.y;
-                
-                // get the object's solid area position
-                target[i].solid.x = target[i].mapX + target[i].solid.x;
-                target[i].solid.y = target[i].mapY + target[i].solid.y;
-                
-                if (sprites.direction.equals("up")){
-                    sprites.solid.y -= sprites.speed;
-                    if (sprites.solid.intersects(target[i].solid)){
-                        sprites.collided = true;
-                        index = i;
-                        
-                    }
-                }
-                else if (sprites.direction.equals("down")){
-                    sprites.solid.y += sprites.speed;
-                    if (sprites.solid.intersects(target[i].solid)){
-                        sprites.collided = true;
-                        index = i;
-                    
-                    }
-                }
-                else if (sprites.direction.equals("left")){
-                    sprites.solid.x -= sprites.speed;
-                    if (sprites.solid.intersects(target[i].solid)){
-                        sprites.collided = true;
-                        index = i;
-                        
-                    }
-                }
-                else if (sprites.direction.equals("right")){
-                    sprites.solid.x += sprites.speed;
-                    if (sprites.solid.intersects(target[i].solid)){
-                        sprites.collided = true;             
-                        index = i;                 
-                    }
-                }
-                sprites.solid.x = sprites.solidAreaDefaultX;
-                sprites.solid.y = sprites.solidAreaDefaultY;
-                target[i].solid.x = target[i].solidAreaDefaultX;
-                target[i].solid.y = target[i].solidAreaDefaultY;
-
-            }
-        }
-        
-        return index;
-    }
-
-    public void checkPlayer(Sprites sprites){
+    // ----------------------------------------------------------|
+    // PLAYER-OBJECT-BEE COLLISION SETTINGS ---------------------|
+    // ----------------------------------------------------------|
+    public void checkPlayerBeeCollision(Sprites sprites) {
         // get the sprite's solid area position
-        sprites.solid.x = sprites.mapX + sprites.solid.x;
-        sprites.solid.y = sprites.mapY + sprites.solid.y;
+        sprites.solidArea.x = sprites.mapX + sprites.solidArea.x;
+        sprites.solidArea.y = sprites.mapY + sprites.solidArea.y;
 
-        // get the object's solid area position
-        game.user.solid.x = game.user.mapX + game.user.solid.x;
-        game.user.solid.y = game.user.mapY + game.user.solid.y;
-        
-        if (sprites.solid.intersects(game.user.solid)){
-                System.out.println("COLLIDE");
-                game.user.playerHealth -= 1;
-                // sprites.collided = true;                        
+        // get the user's solid area position
+        game.user.solidArea.x = game.user.mapX + game.user.solidArea.x;
+        game.user.solidArea.y = game.user.mapY + game.user.solidArea.y;
+
+        if (sprites.solidArea.intersects(game.user.solidArea)) {
+            System.out.println("COLLIDE");
+            game.user.playerHealth -= 1;
+            // sprites.collided = true;
+        }
+
+        sprites.solidArea.x = sprites.solidAreaDefaultX;
+        sprites.solidArea.y = sprites.solidAreaDefaultY;
+        game.user.solidArea.x = game.user.solidAreaDefaultX;
+        game.user.solidArea.y = game.user.solidAreaDefaultY;
+    }
+
+     // Checks if the sprite is hitting any objects
+     public int checkSpriteObjectCollision(Sprites sprites, SuperObject[] target) {
+        int index = 999;
+
+        for (int i = 0; i < target.length; i++) {
+            if (target[i] != null) { // ignore nonexistent objects or bees
+                // ----------------------------------------------------------|
+                // ACCESS SOLID AREA ----------------------------------------|
+                // ----------------------------------------------------------|
+                // get the sprite's solid area posotion
+                sprites.solidArea.x = sprites.mapX + sprites.solidArea.x;
+                sprites.solidArea.y = sprites.mapY + sprites.solidArea.y;
+
+                // get the object's solid area position
+                target[i].solidArea.x = target[i].mapX + target[i].solidArea.x;
+                target[i].solidArea.y = target[i].mapY + target[i].solidArea.y;
+
+                // ----------------------------------------------------------|
+                // SPRITE DIRECTION COLLISION SETTINGS ----------------------|
+                // ----------------------------------------------------------|
+                if (sprites.direction.equals("up")) {
+                    sprites.solidArea.y -= sprites.speed;
+                    if (sprites.solidArea.intersects(target[i].solidArea)) { // sprite collides into object 
+                        sprites.collided = true;
+                        index = i;
+                        
+                    }
+                } else if (sprites.direction.equals("down")) {
+                    sprites.solidArea.y += sprites.speed;
+                    if (sprites.solidArea.intersects(target[i].solidArea)) {
+                        sprites.collided = true;
+                        index = i;
+                    }
+                } else if (sprites.direction.equals("left")) {
+                    sprites.solidArea.x -= sprites.speed;
+                    if (sprites.solidArea.intersects(target[i].solidArea)) {
+                        sprites.collided = true;
+                        index = i;
+                    }
+                } else if (sprites.direction.equals("right")) {
+                    sprites.solidArea.x += sprites.speed;
+                    if (sprites.solidArea.intersects(target[i].solidArea)) {
+                        sprites.collided = true;
+                        index = i;
+                    }
+                }
+                // Refresh player and object solid area 
+                sprites.solidArea.x = sprites.solidAreaDefaultX;
+                sprites.solidArea.y = sprites.solidAreaDefaultY;
+                target[i].solidArea.x = target[i].solidAreaDefaultX;
+                target[i].solidArea.y = target[i].solidAreaDefaultY;
             }
-       
-        sprites.solid.x = sprites.solidAreaDefaultX;
-        sprites.solid.y = sprites.solidAreaDefaultY;
-        game.user.solid.x = game.user.solidAreaDefaultX;
-        game.user.solid.y = game.user.solidAreaDefaultY;
-        
-    }   
+        }
+        return index;
+    }
 }

@@ -7,7 +7,7 @@
 
 package main;
 
-// import java.awt.BasicStroke;
+// IMPORTS (graphics)
 import java.awt.Graphics2D;
 import java.awt.Font;
 import java.awt.Color;
@@ -26,17 +26,25 @@ public class UI {
         arial40 = new Font("Calibri", Font.PLAIN, 40);
     }
 
+    // Draws the corresponding screen
     public void draw(Graphics2D g2){
         this.g2 = g2;
 
-        // Title Screen
+        // ----------------------------------------------------------|
+        // DRAW TITLE SCREEN ----------------------------------------|
+        // ----------------------------------------------------------|
         if (game.gameScreen == game.titleScreen){
             drawTitleScreen();
         }
-        // game screen
+        // ----------------------------------------------------------|
+        // DRAW GAME SCREEN -----------------------------------------|
+        // ----------------------------------------------------------|
         else if (game.gameScreen == game.playScreen){
             drawGameScreen();
         }
+        // ----------------------------------------------------------|
+        // DRAW END SCREEN ------------------------------------------|
+        // ----------------------------------------------------------|
         else if (game.gameScreen == game.endScreen){
             drawEndScreen();
         }
@@ -44,37 +52,48 @@ public class UI {
     }
 
     public void drawTitleScreen(){
+        // ----------------------------------------------------------|
+        // TITLE DRAW COMPONENTS ------------------------------------|
+        // ----------------------------------------------------------|
         if (rulesScreen == 0){
-            // Title Background 
-            g2.setColor(new Color(193, 225, 193));
-            g2.fillRect(0, 0, game.screenWidth, game.screenHeight);
+            // ----------------------------------------------------------|
+            // TITLE BACKGROUND -----------------------------------------|
+            // ----------------------------------------------------------|
+            g2.setColor(new Color(193, 225, 193)); // Background Color
+            g2.fillRect(0, 0, game.screenWidth, game.screenHeight); // Fill Background
     
-            // Title Name text
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD,52F));
-            String text = "BEEware of the Garden";
+            // ----------------------------------------------------------|
+            // TITLE TEXT -----------------------------------------------|
+            // ----------------------------------------------------------|
+            g2.setColor(Color.white); // Text Color
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 52F)); // Text Font 
+            String text = "BEEware of the Garden"; // Text 
+            int x = getXforCenteredText(text); // Text xCoordinates
+            int y = game.tileSize*3; // Text yCoordinates
+            g2.drawString(text, x, y); // Display Text
+    
+            // ----------------------------------------------------------|
+            // GAME IMAGE -----------------------------------------------|
+            // ----------------------------------------------------------|
+            x = game.screenWidth/2 - game.tileSize; // Image xCoordinates
+            y += game.tileSize; // Image yCoordinates
+            g2.drawImage(game.user.left1, x, y, game.tileSize*2, game.tileSize*2, null); // Display Image
+    
+            // ----------------------------------------------------------|
+            // MENU SELECTION TEXT --------------------------------------|
+            // ----------------------------------------------------------|
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F)); // Change Text Font
             
-            int x = getXforCenteredText(text);
-            int y = game.tileSize*3;
-    
-            g2.setColor(Color.white);
-            g2.drawString(text, x, y);
-    
-            // player mascot image slay
-            x = game.screenWidth/2 - game.tileSize;
-               y += game.tileSize;
-            g2.drawImage(game.user.left1, x, y, game.tileSize*2, game.tileSize*2, null);
-    
-            // Menu
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
-            
-            text = "PLAY";
+            // "PLAY" Selection
+            text = "PLAY"; 
             x = getXforCenteredText(text);
             y += game.tileSize*4;
-            g2.drawString(text, x, y);
+            g2.drawString(text, x, y); 
             if (commandNum == 0){ // selection arrow 
                 g2.drawString(">", x-game.tileSize, y);
             }
     
+            // "RULES" Selection
             text = "RULES";
             x = getXforCenteredText(text);
             y += game.tileSize*1.5;
@@ -83,6 +102,7 @@ public class UI {
                 g2.drawString(">", x-game.tileSize, y);
             }
     
+            // "QUIT" Selection
             text = "QUIT";
             x = getXforCenteredText(text);
             y += game.tileSize*1.5;
@@ -91,102 +111,92 @@ public class UI {
                 g2.drawString(">", x-game.tileSize, y);
             }
         }
-        else if (rulesScreen == 1){ // rules screen
-            // Rules Background 
-            g2.setColor(new Color(0, 0, 0));
-            g2.fillRect(0, 0, game.screenWidth, game.screenHeight);
+        // ----------------------------------------------------------|
+        // RULES DRAW COMPONENTS ------------------------------------|
+        // ----------------------------------------------------------|
+        else if (rulesScreen == 1){ 
+            // ----------------------------------------------------------|
+            // RULES BACKGROUND -----------------------------------------|
+            // ----------------------------------------------------------| 
+            g2.setColor(new Color(0, 0, 0)); // Background Color
+            g2.fillRect(0, 0, game.screenWidth, game.screenHeight); // Fill Background
     
-            // Title Name text
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD,52F));
+            // ----------------------------------------------------------|
+            // RULES TITLE TEXT -----------------------------------------|
+            // ----------------------------------------------------------|
+            g2.setColor(Color.white); // Text Color
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,52F)); // Text Font
             String text = "Rules";
-            
-            int x = getXforCenteredText(text);
-            int y = game.tileSize*3;
+            int x = getXforCenteredText(text); // Text xCoordinates
+            int y = game.tileSize*3; // Text yCoordinates
+            g2.drawString(text, x, y); // Display Text
     
-            g2.setColor(Color.white);
-            g2.drawString(text, x, y);
-    
-            // Menu
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
-            
+            // ----------------------------------------------------------|
+            // RULES BODY TEXT ------------------------------------------|
+            // ----------------------------------------------------------|
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F)); // Change Text Font
             text = "bee bad flower good";
             x = getXforCenteredText(text);
             y += game.tileSize*4;
             g2.drawString(text, x, y);
 
+            // ----------------------------------------------------------|
+            // RULES SELECTION TEXT -------------------------------------|
+            // ----------------------------------------------------------|
             text = "BACK";
             x = getXforCenteredText(text);
             y += game.tileSize*3;
             g2.drawString(text, x, y);
-            g2.drawString(">", x-game.tileSize, y);
+            g2.drawString(">", x-game.tileSize, y); // Arrow
         }
     }
 
-    public void drawRulesScreen(){
-        // Title Background 
-         g2.setColor(new Color(193, 225, 193));
-         g2.fillRect(0, 0, game.screenWidth, game.screenHeight);
- 
-         // rules text
-         g2.setFont(g2.getFont().deriveFont(Font.BOLD,52F));
-         String text = "Rules";
-         
-         int x = getXforCenteredText(text);
-         int y = game.tileSize*3;
- 
-         g2.setColor(Color.white);
-         g2.drawString(text, x, y);
- 
-         g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
-         
-         text = "PLAY";
-         x = getXforCenteredText(text);
-         y += game.tileSize*2;
-         g2.drawString(text, x, y);
-
-    }
-
     public void drawGameScreen(){
-        // Title Name text
+        // ----------------------------------------------------------|
+        // IN GAME TEXT ---------------------------------------------|
+        // ----------------------------------------------------------|
         g2.setFont(arial40);
         g2.setColor(Color.white);
         g2.drawString("Tulips: " + game.user.numTulipCollected, 25, game.tileSize);
-
         g2. drawString("Health: " + game.user.playerHealth, 25, game.tileSize * 2);
     }
 
     public void drawEndScreen(){
-        // Background 
-        g2.setColor(new Color(193, 225, 193));
+        // ----------------------------------------------------------|
+        // END BACKGROUND -------------------------------------------|
+        // ----------------------------------------------------------|
+        g2.setColor(new Color(193, 225, 193)); 
         g2.fillRect(0, 0, game.screenWidth, game.screenHeight);
 
-        // game over text
+        // ----------------------------------------------------------|
+        // END TITLE TEXT -------------------------------------------|
+        // ----------------------------------------------------------|
+        g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,52F));
-        String text = "GAME OVER";
-        
+        String text = "GAME OVER";        
         int x = getXforCenteredText(text);
         int y = game.tileSize*3;
-
-        g2.setColor(Color.white);
         g2.drawString(text, x, y);
         
-        // End text
+        // ----------------------------------------------------------|
+        // END BODY TEXT --------------------------------------------|
+        // ----------------------------------------------------------|
         text = "You collected " + game.user.numTulipCollected + " tulip(s)";
         x = getXforCenteredText(text);
         y += game.tileSize*3;
-
         g2.drawString(text, x, y);
        
-        // QUIT
+        // ----------------------------------------------------------|
+        // END SELECTION TEXT ---------------------------------------|
+        // ----------------------------------------------------------|
         text = "QUIT";
         x = getXforCenteredText(text);
         y += game.tileSize*4;
         g2.drawString(text, x, y);
-        g2.drawString(">", x-game.tileSize, y);
-        
+        g2.drawString(">", x-game.tileSize, y); 
     }
 
-    public int getXforCenteredText(String text){
+    public int getXforCenteredText(String text){ // Centre the text
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int centerX = game.screenWidth/2 - length/2;
         return centerX;
