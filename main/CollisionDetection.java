@@ -7,8 +7,8 @@
 
 package main;
 
-import objects.SuperObject;
 // IMPORTS (classes)
+import objects.SuperObject;
 import sprites.Sprites;
 
 public class CollisionDetection {
@@ -115,8 +115,9 @@ public class CollisionDetection {
         game.user.solidArea.x = game.user.solidAreaDefaultX;
         game.user.solidArea.y = game.user.solidAreaDefaultY;
     }
+    
 
-     // Checks if the sprite is hitting any objects
+     // Checks if the sprite is hitting any objects (flowers)
      public int checkSpriteObjectCollision(Sprites sprites, SuperObject[] target) {
         int index = 999;
 

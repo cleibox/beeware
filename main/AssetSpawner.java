@@ -37,7 +37,7 @@ public class AssetSpawner {
     // ----------------------------------------------------------|
     public void spawnTulip() {
         int[] spawnSet = getRandomWorldCoordinates(); // get the set of random coordinates
-        game.obj[0] = new TulipObject(); // tulip object is a sub class of SuperObject so we are able to instantiate it
+        game.obj[0] = new TulipObject(game); // tulip object is a sub class of SuperObject so we are able to instantiate it
         game.obj[0].mapX = spawnSet[0] * game.tileSize;
         game.obj[0].mapY = spawnSet[1] * game.tileSize;
 
@@ -49,7 +49,7 @@ public class AssetSpawner {
     // ----------------------------------------------------------|
     public void spawnNightshade() {
         int[] spawnSet = getRandomWorldCoordinates(); // get the set of random coordinates
-        game.obj[1] = new NightshadeObject(); // nightshade object is a sub class of SuperObject so we are able to instantiate it
+        game.obj[1] = new NightshadeObject(game); // nightshade object is a sub class of SuperObject so we are able to instantiate it
         game.obj[1].mapX = spawnSet[0] * game.tileSize; // held in the object array
         game.obj[1].mapY = spawnSet[1] * game.tileSize;
         

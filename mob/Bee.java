@@ -35,28 +35,24 @@ public class Bee extends Sprites {
     }
     
     public void getImage(){
-        try{
-            left = ImageIO.read(new File ("mob/bees_left.png"));
-            left1 = ImageIO.read(new File ("mob/bees_left.png"));
-            right = ImageIO.read(new File ("mob/bees_right.png"));
-            right1 = ImageIO.read(new File ("mob/bees_right.png"));
-            up = ImageIO.read(new File ("mob/bees_up.png"));
-            up1 = ImageIO.read(new File ("mob/bees_up.png"));
-            up2 = ImageIO.read(new File ("mob/bees_up.png")); 
-            down = ImageIO.read(new File ("mob/bees_down.png"));
-            down1 = ImageIO.read(new File ("mob/bees_down.png"));
-            down2 = ImageIO.read(new File ("mob/bees_down.png"));
-        } catch (IOException ex){
-            ex.printStackTrace();
-        }
+        left = setup("mob/bees_left");
+        left1 = setup("mob/bees_left");
+        right = setup("mob/bees_right");
+        right1 = setup("mob/bees_right");
+        up = setup("mob/bees_up");
+        up1 = setup("mob/bees_up");
+        up2 = setup("mob/bees_up");
+        down = setup("mob/bees_down");
+        down1 = setup("mob/bees_down");
+        down2 = setup("mob/bees_down");
     }
 
     public void setAction(){
         if (onPath == true){
-            int goalCol = 1;
-            int goalRow = 1;
+            int goalCol = (game.user.mapX + game.user.solidArea.x)/game.tileSize;
+            int goalRow = (game.user.mapY + game.user.solidArea.y)/game.tileSize;
 
-            searchPath(goalCol, goalRow);
+            // searchPath(goalCol, goalRow);
 
         } else {
             actionLockCounter++;

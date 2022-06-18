@@ -28,13 +28,6 @@ public class Main {
       window.setVisible(true);
 
       // ----------------------------------------------------------|
-      // ASSET SPAWNER SETUP --------------------------------------|
-      // ----------------------------------------------------------|
-      // game.aSpawner.spawnTulip();
-      // game.aSpawner.spawnNightshade();
-      // game.aSpawner.spawnBee();
-
-      // ----------------------------------------------------------|
       // GAME SETUP -----------------------------------------------|
       // ----------------------------------------------------------|
       game.startGameThread(); // the game loop starts here

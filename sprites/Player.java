@@ -10,13 +10,6 @@ package sprites;
 import main.GamePanel;
 import main.MyKeyListener;
 import java.awt.Graphics2D;
-//import java.awt.Color;
-
-// the following imports are needed for pictures
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -50,6 +43,7 @@ public class Player extends Sprites {
         solidArea.y = 18;
         solidArea.width = 24;
         solidArea.height = 32;
+
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y; 
 
@@ -66,21 +60,16 @@ public class Player extends Sprites {
     }
 
     public void getPlayerImage(){ // load in the character sprite sheet
-        try{
-            up = ImageIO.read(new File ("images/man_up.png"));
-            up1 = ImageIO.read(new File ("images/man_up_step_1.png"));
-            up2 = ImageIO.read(new File ("images/man_up_step_2.png"));
-            down = ImageIO.read(new File ("images/man_down.png"));
-            down1 = ImageIO.read(new File ("images/man_down_step_1.png"));
-            down2 = ImageIO.read(new File ("images/man_down_step_2.png"));
-            left = ImageIO.read(new File ("images/man_left.png"));
-            left1 = ImageIO.read(new File ("images/man_left_step.png"));
-            right = ImageIO.read(new File ("images/man_right.png"));
-            right1 = ImageIO.read(new File ("images/man_right_step.png"));
-
-        }catch (IOException ex){
-            ex.printStackTrace();
-        }
+        up = setup("images/man_up");
+        up1 = setup("images/man_up_step_1");
+        up2 = setup("images/man_up_step_2");
+        down = setup("images/man_down");
+        down1 = setup("images/man_down_step_1");
+        down2 = setup("images/man_down_step_2");
+        left = setup("images/man_left");
+        left1 = setup("images/man_left_step");
+        right = setup("images/man_right");
+        right1 = setup("images/man_right_step");
     }
 
     public void update(){ // gets called 60 times per second
@@ -215,7 +204,7 @@ public class Player extends Sprites {
             }
         }
         //drawing image on screen
-        g2.drawImage(image, screenX, screenY, game.tileSize, game.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
        
        }
 

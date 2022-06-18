@@ -72,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     public UI ui = new UI(this); // user interface; controls the different game screens
     public TileManager tileManager = new TileManager (this); // controls the tiles and their properties
     public CollisionDetection detector = new CollisionDetection(this); // activates collision checker (between tiles, sprites, player)
-    public PathFinder pFinder = new PathFinder(this); // shorted path for bees to get to the player
+    // public PathFinder pFinder = new PathFinder(this); // shorted path for bees to get to the player
 
     // ----------------------------------------------------------|
     // PLAYER INSTANTIATIONS ------------------------------------|
@@ -152,6 +152,9 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
         super.paintComponent(g); 
         Graphics2D g2 = (Graphics2D)g; // more refined graphics
 
+        long drawStart = 0;
+        drawStart = System.nanoTime();
+
         // Title Screen
         if (gameScreen != playScreen){
             ui.draw(g2);
@@ -190,6 +193,10 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
             // ----------------------------------------------------------| 
             user.draw(g2); // using draw method from player class
             
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            // System.out.println("draw time: "+ passed);
+
             g2.dispose(); // refresh
         }
     }

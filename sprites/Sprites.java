@@ -7,14 +7,22 @@
 
 package sprites;
 
+// IMPORTS (classes)
+import main.GamePanel;
+import main.UtilityTool;
+
+// IMPORTS (graphics)
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
-import main.GamePanel;
-
 import java.awt.Rectangle;
 
+// IMPORTS (file reading)
+import java.io.IOException;
+import java.io.File;
+import javax.imageio.ImageIO;
+
 public class Sprites {
-  GamePanel game;
+  public GamePanel game;
 
   public int mapX, mapY;
   public int speed;
@@ -27,7 +35,7 @@ public class Sprites {
   public BufferedImage playerLeft, playerLeft1;
   public BufferedImage playerRight, playerRight1;
 
-  public String direction;
+  public String direction = "down";
   public int spriteCounter = 0;
   public int spriteNum = 1;
 
@@ -35,6 +43,8 @@ public class Sprites {
   public Rectangle solidArea;
   public boolean collided = false;
   public int actionLockCounter = 0;
+
+  public String name;
 
   public int solidAreaDefaultX, solidAreaDefaultY;
 
@@ -49,9 +59,8 @@ public class Sprites {
     collided = false;
 
     game.detector.tileDetection(this);
-
     game.detector.checkPlayerBeeCollision(this);
-    game.detector.checkSpriteObjectCollision(this, game.obj);
+    game.detector.checkSpriteObjectCollision(this, game.obj); // check user colliding with objects (flowers)
     // game.detector.checkSpriteObjectCollision(this, game.bee);
     // if (type == )
 
@@ -143,13 +152,28 @@ public class Sprites {
     }
   }
 
+  public BufferedImage setup(String imagePath){
+    UtilityTool uTool = new UtilityTool();
+    BufferedImage image = null;
+
+    try{
+      //  image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+       image = ImageIO.read(new File (imagePath + ".png"));
+
+       image = uTool.scaleImage(image, game.tileSize, game.tileSize);
+    } catch(IOException e) {
+        e.printStackTrace();
+    }
+    return image;
+}
+/* 
   public void searchPath(int goalCol, int goalRow) {
     int startCol = (mapX + solidArea.x) / game.tileSize;
     int startRow = (mapY + solidArea.y) / game.tileSize;
     game.pFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
 
-    if (game.pFinder.search() == true) {
-      // next mapx & mapy
+    if (game.pFinder.search() == true) { // got to the goal
+      // next mapx & mapy (world coordinates)
       int nextX = game.pFinder.pathList.get(0).col * game.tileSize;
       int nextY = game.pFinder.pathList.get(0).row * game.tileSize;
 
@@ -161,9 +185,11 @@ public class Sprites {
 
       if (spriteTopY > nextY && spriteLeftX >= nextX && spriteRightX < nextX + game.tileSize) {
         direction = "up";
-      } else if (spriteTopY < nextY && spriteLeftX >= nextX && spriteRightX < nextX + game.tileSize) {
+      } 
+      else if (spriteTopY < nextY && spriteLeftX >= nextX && spriteRightX < nextX + game.tileSize) {
         direction = "down";
-      } else if (spriteTopY >= nextY && spriteBottomY < nextY + game.tileSize) {
+      } 
+      else if (spriteTopY >= nextY && spriteBottomY < nextY + game.tileSize) {
         // left or right
         if (spriteLeftX > nextX) {
           direction = "left";
@@ -172,21 +198,24 @@ public class Sprites {
           direction = "right";
         }
 
-      } else if (spriteTopY > nextY && spriteLeftX > nextX) {
+      } 
+      else if (spriteTopY > nextY && spriteLeftX > nextX) { // sprite y coordiante is below then next tile && sprite is to the right of the tile
         // up or left
         direction = "up";
-        checkCollision();
+        checkCollision(); // check if there is a stone/brick
         if (collided == true) {
           direction = "left";
         }
-      } else if (spriteTopY > nextY && spriteLeftX < nextX) {
+      } 
+      else if (spriteTopY > nextY && spriteLeftX < nextX) {
         // up or right
         direction = "up";
         checkCollision();
         if (collided == true) {
           direction = "right";
         }
-      } else if (spriteTopY < nextY && spriteLeftX > nextX) {
+      } 
+      else if (spriteTopY < nextY && spriteLeftX > nextX) {
         // down or left
         direction = "down";
         checkCollision();
@@ -210,6 +239,6 @@ public class Sprites {
 
       }
     }
-  }
+  }*/
 
 }

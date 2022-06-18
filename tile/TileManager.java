@@ -8,6 +8,7 @@
 package tile;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
@@ -17,19 +18,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
+import javax.swing.text.Utilities;
 
 public class TileManager { 
     GamePanel game;
     public Tile[] tile;
     public int mapTileNum[][];
-    public int mapTileNumPath[][][];
+    // public int mapTileNumPath[][][];
 
     //tile constructor
     public TileManager (GamePanel game){
         this.game = game;
+
         tile = new Tile[10];//create 10 kinds of tiles
         mapTileNum = new int[game.maxMapCol][game.maxMapRow];//storing all number from map text file
-        mapTileNumPath = new int[game.maxMap][game.maxMapCol][game.maxMapRow];
+
+        // mapTileNumPath = new int[game.maxMap][game.maxMapCol][game.maxMapRow];
         
         getTileImage();
         loadMap("map.txt");
@@ -37,35 +41,39 @@ public class TileManager {
 
     //method to import images
     public void getTileImage (){
+        //grass tile
+        setup(0, "grass", false);
+
+        //brick tile tile --> solid
+        setup(1, "brick", true);
+
+        //stone tile --> solid
+        setup(2, "stone", true);
+
+        //bush tile
+        setup(3, "bush", false);
+
+        //dirt tile
+        setup(4, "dirt", false);
+
+        //sand tile
+        setup(5, "sand", false);
+
+    }
+
+    public void setup(int index, String imageName, boolean collision){
+        UtilityTool uTool = new UtilityTool();
+
         try{
-            //grass tile
-            tile[0] = new Tile ();
-            tile[0].image = ImageIO.read(new File ("images/grass.png"));
+            tile[index] = new Tile();
+            // tile[index].image = ImageIO.read(getClass().getResourceAsStream("images/" + imageName + ".png"));
+            tile[index].image = ImageIO.read(new File ("images/" + imageName + ".png"));
 
-            //brick tile tile --> solid
-            tile[1] = new Tile ();
-            tile[1].image = ImageIO.read(new File ("images/brick.png"));
-            tile [1].collision = true;
 
-            //stone tile --> solid
-            tile[2] = new Tile ();
-            tile[2].image = ImageIO.read(new File ("images/stone.png"));
-            tile[2].collision = true;
-
-            //bush tile
-            tile[3] = new Tile ();
-            tile[3].image = ImageIO.read(new File ("images/bush.png"));
-
-            //dirt tile
-            tile[4] = new Tile ();
-            tile[4].image = ImageIO.read(new File ("images/dirt.png"));
-
-            //sand tile
-            tile[5] = new Tile ();
-            tile[5].image = ImageIO.read(new File ("images/sand.png"));
-
-        }catch(IOException ex){
-            ex.printStackTrace();
+            tile[index].image = uTool.scaleImage(tile[index].image, game.tileSize, game.tileSize);
+            tile[index].collision = collision;
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -124,7 +132,7 @@ public class TileManager {
                 ((mapX - game.tileSize) < (game.user.mapX + game.user.screenX)) &&
                 ((mapY + game.tileSize) > (game.user.mapY - game.user.screenY)) &&
                 ((mapY - game.tileSize) < (game.user.mapY + game.user.screenY))){
-            g2.drawImage(tile[tileNum].image, screenX, screenY, game.tileSize, game.tileSize, null);
+            g2.drawImage(tile[tileNum].image, screenX, screenY, null);
             }
 
             //drawing the next tile

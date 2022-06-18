@@ -9,6 +9,7 @@ package ai;
 
 import java.util.ArrayList;
 
+// IMPORTS (classes)
 import main.GamePanel;
 import sprites.Sprites;
 
@@ -28,18 +29,20 @@ public class PathFinder {
         instantiateNodes();
     }
 
-    public void instantiateNodes(){
+    public void instantiateNodes(){ // create a node for every tile on the map
         node = new Node[game.maxMapCol][game.maxMapRow];
         
         int col = 0;
         int row = 0;
 
+        while(col < game.maxMapCol && row < game.maxMapRow){
+            node[col][row] = new Node(col, row);
+        }
         col++;
         if (col == game.maxMapCol){
             col = 0;
             row++;
         }
-        
     }
 
     public void resetNodes() {
@@ -81,7 +84,7 @@ public class PathFinder {
             // set solid node
 
             // check tiles
-            int tileNum = game.tileManager.mapTileNumPath[game.currentMap][col][row];
+            int tileNum = game.tileManager.mapTileNum[col][row]; // MHM
             if (game.tileManager.tile[tileNum].collision == true){
                 node[col][row].solid = true;
             }
@@ -92,9 +95,7 @@ public class PathFinder {
             if(col == game.maxMapCol){
                 col = 0;
                 row++;
-            }
-            
-            
+            }  
         }
     }
 
@@ -112,7 +113,7 @@ public class PathFinder {
         // F cost
         node.fCost = node.gCost + node.hCost;
     }
-
+    /* 
     public boolean search(){
         while (goalReached == false && step < 500){
             int col = currentNode.col;
@@ -151,7 +152,9 @@ public class PathFinder {
                 }
                 // if F cost is equal, check the G cost
                 else if (openList.get(i).fCost == bestNodefCost){
-
+                    if(openList.get(i).gCost < openList.get(bestNodeIndex).gCost){
+                        bestNodeIndex = i;
+                    }
                 }
             }
 
@@ -171,7 +174,7 @@ public class PathFinder {
         }
 
         return goalReached;
-    }
+    }*/
 
     public void openNode (Node node){
         if (node.open == false && node.checked == false && node.solid == false) {
