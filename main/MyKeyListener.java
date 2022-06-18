@@ -48,7 +48,6 @@ public class MyKeyListener implements KeyListener {
                 if (code == KeyEvent.VK_ENTER) {
                     if (game.ui.commandNum == 0) { // chose "PLAY"
                         game.gameScreen = game.playScreen;
-                        System.out.println("gameee " + game.gameScreen);
                     }
                     if (game.ui.commandNum == 1) { // chose "RULES"
                         game.ui.rulesScreen = 1;

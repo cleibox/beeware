@@ -137,7 +137,7 @@ public class Player extends Sprites {
             if (objectName.equals("Tulip")){
                 game.playSoundEffect(3); // tulip collection sound effect
                 numTulipCollected++;
-                System.out.println("Total tulips: " + numTulipCollected);
+                // System.out.println("Total tulips: " + numTulipCollected);
                 game.obj[i] = null; // delete the object we touched
                 game.aSpawner.spawnTulip();
                 game.user.playerHealth++;
@@ -155,13 +155,6 @@ public class Player extends Sprites {
             }
         }
     }
-
-    // public void step(){
-    //     while (key.upPressed == true || key.downPressed == true || 
-    //     key.leftPressed == true || key.rightPressed == true){
-    //         game.playSoundEffect(4); // walking sound effect
-    //     }
-    // }
 
     public void playerHealth(){ // game end
         if (this.playerHealth <= 0){

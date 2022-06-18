@@ -63,19 +63,12 @@ public class Sprites {
     game.detector.tileDetection(this);
     game.detector.checkPlayerBeeCollision(this);
     game.detector.checkSpriteObjectCollision(this, game.obj); // check user colliding with objects (flowers)
-    // game.detector.checkSpriteObjectCollision(this, game.bee);
-    // if (type == )
-
   }
 
   public void update() {
     setAction();
 
     checkCollision();
-
-    // collided = false;
-    // game.detector.tileDetection(this);
-    // game.detector.checkPlayer(this);
 
     // ALLOWS movement only if collision is NOT detected
     if (collided == false) {
@@ -167,80 +160,6 @@ public class Sprites {
         e.printStackTrace();
     }
     return image;
-}
-/* 
-  public void searchPath(int goalCol, int goalRow) {
-    int startCol = (mapX + solidArea.x) / game.tileSize;
-    int startRow = (mapY + solidArea.y) / game.tileSize;
-    game.pFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
-
-    if (game.pFinder.search() == true) { // got to the goal
-      // next mapx & mapy (world coordinates)
-      int nextX = game.pFinder.pathList.get(0).col * game.tileSize;
-      int nextY = game.pFinder.pathList.get(0).row * game.tileSize;
-
-      // sprite's solid position
-      int spriteLeftX = mapX + solidArea.x;
-      int spriteRightX = mapX + solidArea.x + solidArea.width;
-      int spriteTopY = mapY + solidArea.y;
-      int spriteBottomY = mapY + solidArea.y + solidArea.height;
-
-      if (spriteTopY > nextY && spriteLeftX >= nextX && spriteRightX < nextX + game.tileSize) {
-        direction = "up";
-      } 
-      else if (spriteTopY < nextY && spriteLeftX >= nextX && spriteRightX < nextX + game.tileSize) {
-        direction = "down";
-      } 
-      else if (spriteTopY >= nextY && spriteBottomY < nextY + game.tileSize) {
-        // left or right
-        if (spriteLeftX > nextX) {
-          direction = "left";
-        }
-        if (spriteLeftX < nextX) {
-          direction = "right";
-        }
-
-      } 
-      else if (spriteTopY > nextY && spriteLeftX > nextX) { // sprite y coordiante is below then next tile && sprite is to the right of the tile
-        // up or left
-        direction = "up";
-        checkCollision(); // check if there is a stone/brick
-        if (collided == true) {
-          direction = "left";
-        }
-      } 
-      else if (spriteTopY > nextY && spriteLeftX < nextX) {
-        // up or right
-        direction = "up";
-        checkCollision();
-        if (collided == true) {
-          direction = "right";
-        }
-      } 
-      else if (spriteTopY < nextY && spriteLeftX > nextX) {
-        // down or left
-        direction = "down";
-        checkCollision();
-        if (collided == true) {
-          direction = "left";
-        }
-      } else if (spriteTopY < nextY && spriteLeftX < nextX) {
-        // down or right
-        direction = "down";
-        checkCollision();
-        if (collided == true) {
-          direction = "right";
-        }
-      }
-
-      // if the target goal is reached, stop the path search
-      int nextCol = game.pFinder.pathList.get(0).col;
-      int nextRow = game.pFinder.pathList.get(0).row;
-      if (nextCol == goalCol && nextRow == goalRow) {
-        onPath = false;
-
-      }
-    }
-  }*/
+  }
 
 }

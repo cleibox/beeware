@@ -105,7 +105,7 @@ public class CollisionDetection {
         game.user.solidArea.y = game.user.mapY + game.user.solidArea.y;
 
         if (sprites.solidArea.intersects(game.user.solidArea)) {
-            System.out.println("COLLIDE");
+            // System.out.println("COLLIDE");
             game.user.playerHealth -= 1;
             game.playSoundEffect(1); // spound effect on bee contact 
             // sprites.collided = true;
@@ -116,7 +116,6 @@ public class CollisionDetection {
         game.user.solidArea.x = game.user.solidAreaDefaultX;
         game.user.solidArea.y = game.user.solidAreaDefaultY;
     }
-    
 
      // Checks if the sprite is hitting any objects (flowers)
      public int checkSpriteObjectCollision(Sprites sprites, SuperObject[] target) {

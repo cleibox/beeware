@@ -41,9 +41,7 @@ public class AssetSpawner {
         game.obj[0].mapX = spawnSet[0] * game.tileSize;
         game.obj[0].mapY = spawnSet[1] * game.tileSize;
 
-        // game.numSpawnedTulips++;
-
-        System.out.println("TULIPmapX " + (game.obj[0].mapX)/game.tileSize + " mapY " + (game.obj[0].mapY)/game.tileSize);
+        // System.out.println("TULIPmapX " + (game.obj[0].mapX)/game.tileSize + " mapY " + (game.obj[0].mapY)/game.tileSize);
     }
     
     // ----------------------------------------------------------|
@@ -55,7 +53,7 @@ public class AssetSpawner {
         game.obj[1].mapX = spawnSet[0] * game.tileSize; // held in the object array
         game.obj[1].mapY = spawnSet[1] * game.tileSize;
         
-        System.out.println("SHADEmapX " + (game.obj[1].mapX)/game.tileSize + " mapY " + (game.obj[1].mapY)/game.tileSize);
+        // System.out.println("SHADEmapX " + (game.obj[1].mapX)/game.tileSize + " mapY " + (game.obj[1].mapY)/game.tileSize);
     }
 
     // ----------------------------------------------------------|
