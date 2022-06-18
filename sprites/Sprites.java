@@ -27,8 +27,6 @@ public class Sprites {
   public int mapX, mapY;
   public int speed;
 
-  public boolean onPath = false; // straying away from path??
-
   public BufferedImage up, up1, up2, down, down1, down2, left, left1, right, right1;
   public BufferedImage playerUp, playerUp1, playerUp2;
   public BufferedImage playerDown, playerDown1, playerDown2;
