@@ -32,5 +32,7 @@ public class Main {
       // ----------------------------------------------------------|
       game.startGameThread(); // the game loop starts here
       game.setupGame();
+
+      
    }
 }

@@ -21,7 +21,7 @@ public class Bee extends Sprites {
         super(game);
 
         direction = "down";
-        speed = 5;
+        speed = 8;
 
         solidArea = new Rectangle();
         solidArea.x = 3;
