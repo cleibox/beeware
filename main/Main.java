@@ -30,9 +30,9 @@ public class Main {
       // ----------------------------------------------------------|
       // ASSET SPAWNER SETUP --------------------------------------|
       // ----------------------------------------------------------|
-      game.aSpawner.spawnTulip();
-      game.aSpawner.spawnNightshade();
-      game.aSpawner.spawnBee();
+      // game.aSpawner.spawnTulip();
+      // game.aSpawner.spawnNightshade();
+      // game.aSpawner.spawnBee();
 
       // ----------------------------------------------------------|
       // GAME SETUP -----------------------------------------------|

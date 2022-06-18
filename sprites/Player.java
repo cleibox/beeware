@@ -22,9 +22,9 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Player extends Sprites {
-    
     MyKeyListener key;
     
+    // Player coordinates on the screen
     public final int screenX;
     public final int screenY;
     
@@ -37,7 +37,6 @@ public class Player extends Sprites {
     //player constructor
     public Player(GamePanel game, MyKeyListener key){
         super(game);
-        this.game = game;
         this.key = key;
 
         //setting player at center of the game screen
@@ -46,13 +45,11 @@ public class Player extends Sprites {
 
         //collision detection rectangle
         //player properties
-        int playerX = 8;
-        int playerY = 18;
-        int playerH = 32;
-        int playerW = 24;
-        solidArea = new Rectangle(playerX, playerY, playerH, playerW);
+        solidArea = new Rectangle();
         solidArea.x = 8;
-        solidArea.y = 16;
+        solidArea.y = 18;
+        solidArea.width = 24;
+        solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y; 
 

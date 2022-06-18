@@ -26,8 +26,8 @@ public class Bee extends Sprites {
         solidArea = new Rectangle();
         solidArea.x = 3;
         solidArea.y = 4;
-        solidArea.width = 14;
-        solidArea.height = 9;
+        solidArea.width = 40;
+        solidArea.height = 42;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 

@@ -104,6 +104,9 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
         gameScreen = titleScreen; // begins with the title screen
 
         playAudio(0); // background music 
+        aSpawner.spawnTulip();
+        aSpawner.spawnNightshade();
+        aSpawner.spawnBee();
     }
 
     public void startGameThread(){
