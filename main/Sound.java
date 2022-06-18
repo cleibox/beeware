@@ -1,4 +1,4 @@
- /**
+/**
   * Sound
   * Desc: Sets up and runs audio functions
   * @author Cynthia L & Phoebe Y ICS4U
@@ -11,36 +11,42 @@ package main;
 import java.net.URL;
 import javax.sound.sampled.*;
 
-public class Sound {
+public class Sound{
 
-    Clip clip;
-    URL soundURL[] = new URL [10];
+    static Clip clip;
+    URL soundURL[] = new URL[10];
 
     public Sound() {
         soundURL[0] = getClass().getResource("/audio/bkgMusic.wav");
         soundURL[1] = getClass().getResource("/audio/buzz.wav");
         soundURL[2] = getClass().getResource("/audio/ouch.wav");
         soundURL[3] = getClass().getResource("/audio/popLevelUp.wav");
+        soundURL[4] = getClass().getResource("/audio/steps.wav");
     }
 
-    public void setFile(int i){
-        try{
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL[i]); // passes audio based on array index
+    public void setFile(int i) {
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL[i]); // passes audio based on array
+                                                                                         // index
             clip = AudioSystem.getClip();
             clip.open(audioStream);
 
-        }catch(Exception ex){
+        } catch (Exception ex) {
         }
     }
-    public void play(){
-        clip.start(); //starts audio
-    }
-    public void loop(){
-        clip.loop(Clip.LOOP_CONTINUOUSLY); //loops audio
 
-    }
-    public void stop(){
-        clip.stop(); //stops audio
+    public void play() {
+        clip.start(); // starts audio
     }
 
+    public void loop() {
+        clip.loop(Clip.LOOP_CONTINUOUSLY); // loops audio
+
+    }
+
+    public void stop() {
+        clip.stop(); // stops audio
+        clip.flush(); // clear the buffer with audio data
+        //clip.setFramePosition(0); // prepare to start from the beginning
+    }
 }

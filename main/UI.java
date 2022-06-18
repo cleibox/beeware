@@ -128,24 +128,36 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD,52F)); // Text Font
             String text = "Rules";
             int x = getXforCenteredText(text); // Text xCoordinates
-            int y = game.tileSize*3; // Text yCoordinates
+            int y = game.tileSize*2; // Text yCoordinates
             g2.drawString(text, x, y); // Display Text
     
             // ----------------------------------------------------------|
             // RULES BODY TEXT ------------------------------------------|
             // ----------------------------------------------------------|
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F)); // Change Text Font
-            text = "bee bad flower good";
-            x = getXforCenteredText(text);
-            y += game.tileSize*4;
-            g2.drawString(text, x, y);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F)); // Change Text Font
+            String textMainBody = "The goal of the game is to collect as many flowers as you can \nwhile you have enough health points to stay alive from the bees.";
+            x = 85;
+            y += game.tileSize*1; 
+            for (String line: textMainBody.split("\n")){ //split text to next line when \n is typed
+                g2.drawString(line, x, y);
+                System.out.println (x +" " + y);
+                y += 40;
+            }
+            //String textBeeDetails
+
+            // ----------------------------------------------------------|
+            // RULES IMAGES ---------------------------------------------|
+            // ----------------------------------------------------------|
+            x = game.screenWidth/2 - game.tileSize; // Image xCoordinates
+            y += game.tileSize; // Image yCoordinates
+            g2.drawImage(game.user.left, x, y, game.tileSize*2, game.tileSize*2, null); // Display Image
 
             // ----------------------------------------------------------|
             // RULES SELECTION TEXT -------------------------------------|
             // ----------------------------------------------------------|
             text = "BACK";
             x = getXforCenteredText(text);
-            y += game.tileSize*3;
+            y += game.tileSize*6;
             g2.drawString(text, x, y);
             g2.drawString(">", x-game.tileSize, y); // Arrow
         }
