@@ -77,6 +77,9 @@ public class Player extends Sprites {
             left1 = ImageIO.read(new File ("images/man_left_step.png"));
             right = ImageIO.read(new File ("images/man_right.png"));
             right1 = ImageIO.read(new File ("images/man_right_step.png"));
+            beeLeft = ImageIO.read(new File ("mob/bees_left.png"));
+            tulip = ImageIO.read(new File ("objects/tulip.png"));
+            nightShade = ImageIO.read(new File ("objects/nightshade.png"));
 
         }catch (IOException ex){
             ex.printStackTrace();

@@ -26,6 +26,8 @@ public class Sprites {
   public BufferedImage playerDown, playerDown1, playerDown2;
   public BufferedImage playerLeft, playerLeft1;
   public BufferedImage playerRight, playerRight1;
+  public BufferedImage beeLeft;
+  public BufferedImage tulip, nightShade;
 
   public String direction;
   public int spriteCounter = 0;

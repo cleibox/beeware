@@ -5,6 +5,8 @@
  * @version 1.2 Jun 2022
  */
 
+ // PLEASE USE ARROW KEYS AND ENTER KEY TO NAVIGATE MAIN MENU
+
 package main;
 
 // IMPORTS (java swing)

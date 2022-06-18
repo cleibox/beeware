@@ -103,7 +103,7 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     public void setupGame(){
         gameScreen = titleScreen; // begins with the title screen
 
-        //playAudio(0); // background music TURN BACK ON ITS JUST ANNOYING RN
+        playAudio(0);
         aSpawner.spawnTulip();
         aSpawner.spawnNightshade();
         aSpawner.spawnBee();
@@ -211,7 +211,6 @@ public class GamePanel extends JPanel implements Runnable{ // implements Runnabl
     public void playSoundEffect(int i){
         sound.setFile(i);
         sound.play();
-
         // not looped 
     }
 }
