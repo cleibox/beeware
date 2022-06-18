@@ -30,5 +30,7 @@ public class Main {
       game.aSetter.spawnBee();
       game.startGameThread(); // the game loop starts here
       game.setupGame();
+
+      
    }
 }

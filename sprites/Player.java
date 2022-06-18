@@ -64,7 +64,7 @@ public class Player extends Sprites {
     public void setDefault(){
         mapX= game.tileSize * 25;
         mapY = game.tileSize * 25;
-        speed = 20;
+        speed = 10;
         direction = "down";
     }
 
@@ -158,7 +158,7 @@ public class Player extends Sprites {
                 System.out.println("Total tulips: " + numTulipCollected);
                 game.obj[i] = null; // delete the object we touched
                 game.aSetter.spawnTulip();
-                game.user.playerHealth++;
+                game.user.playerHealth+= 5;
                 game.aSetter.spawnBee(); // spawn bees per collected tulip
                 game.aSetter.spawnBee(); // spawn bees per collected tulip
             }
@@ -167,7 +167,7 @@ public class Player extends Sprites {
                 game.aSetter.spawnNightshade();
                 game.user.playerHealth -= 2;
                 game.aSetter.spawnBee(); // spawn bees per collected night shade
-                game.aSetter.spawnBee(); // spawn bees per collected tulip
+                game.aSetter.spawnBee(); // spawn bees per collected night shade
             
             }
         }
