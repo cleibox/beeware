@@ -9,11 +9,8 @@ package mob;
 
 import main.GamePanel;
 import sprites.Sprites;
-import java.io.File;
-import javax.imageio.ImageIO;
 import java.awt.Rectangle;
 
-import java.io.IOException;
 import java.util.Random;
 
 public class Bee extends Sprites {
@@ -48,34 +45,27 @@ public class Bee extends Sprites {
     }
 
     public void setAction(){
-        if (onPath == true){
-            int goalCol = (game.user.mapX + game.user.solidArea.x)/game.tileSize;
-            int goalRow = (game.user.mapY + game.user.solidArea.y)/game.tileSize;
+        actionLockCounter++;
 
-            // searchPath(goalCol, goalRow);
-
-        } else {
-            actionLockCounter++;
+        if (actionLockCounter == 120){
+            Random random = new Random();
+            int i = random.nextInt(100)+1; // number from 1 to 100
     
-            if (actionLockCounter == 120){
-                Random random = new Random();
-                int i = random.nextInt(100)+1; // number from 1 to 100
-        
-                if (i <= 25){
-                    direction = "up";
-                }
-                if (i > 25 && i  <= 50){
-                    direction = "down";
-                }
-                if (i > 50 && i <= 75){
-                    direction = "left";
-                }
-                if (i > 75 && i <= 100) {
-                    direction = "right";
-                }
-    
-                actionLockCounter = 0; // don't change turning direction for the next 120 frames (2 sec)
+            if (i <= 25){
+                direction = "up";
             }
+            if (i > 25 && i  <= 50){
+                direction = "down";
+            }
+            if (i > 50 && i <= 75){
+                direction = "left";
+            }
+            if (i > 75 && i <= 100) {
+                direction = "right";
+            }
+
+            actionLockCounter = 0; // don't change turning direction for the next 120 frames (2 sec)
+        
         
         }
 
